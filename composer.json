@@ -1,0 +1,27 @@
+{
+  "name": "omnipay/payU",
+  "type": "library",
+  "description": "Payu gateway for Omnipay payment processing library",
+  "homepage": "https://git.alegradigital.com/microservices/payment-payu",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Omnipay\\PayU\\": "src/"
+    }
+  },
+  "require": {
+    "omnipay/common": "^3",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "omnipay/tests": "^3",
+    "squizlabs/php_codesniffer": "^3",
+    "phpro/grumphp": "^0.14"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "3.0.x-dev"
+    }
+  },
+  "prefer-stable": true
+}
