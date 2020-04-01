@@ -5,7 +5,8 @@
 
 namespace Omnipay\PayU\Messages;
 
-use Omnipay\Common\Item;
+
+use Omnipay\Common\Exception\InvalidResponseException;
 
 class AuthorizeRequest extends AbstractRequest
 {
@@ -24,6 +25,7 @@ class AuthorizeRequest extends AbstractRequest
             "EXP_MONTH" => $this->getCard()->getExpiryMonth(),
             "EXP_YEAR" => $this->getCard()->getExpiryYear(),
             "CC_CVV" => $this->getCard()->getCvv(),
+            "CC_OWNER" => $this->getCcOwner(),
             "BILL_FNAME" => $this->getCard()->getBillingFirstName(),
             "BILL_LNAME" => $this->getCard()->getBillingLastName(),
             "BILL_EMAIL" => $this->getCard()->getEmail(),
@@ -45,30 +47,30 @@ class AuthorizeRequest extends AbstractRequest
             "DELIVERY_ZIPCODE" => $this->getCard()->getShippingPostcode(),
             "DELIVERY_CITY" => $this->getCard()->getShippingCity(),
             "DELIVERY_STATE" => $this->getCard()->getShippingCity(),
-            "DELIVERY_COUNTRYCODE" => $this->getCard()->getShippingState()
+            "DELIVERY_COUNTRYCODE" => $this->getCard()->getShippingState(),
         ];
 
-        if ($this->getInstallmentNumber()) {
-            $data['SELECTED_INSTALLMENTS_NUMBER'] = $this->getInstallmentNumber();
-        }
+        $data['SELECTED_INSTALLMENTS_NUMBER'] = !empty($this->getInstallmentNumber()) ? $this->getInstallmentNumber() : "1";
 
         $items = $this->getItems();
         if ($items) {
             /** @var Item $item */
             foreach ($items as $item) {
                 $data['ORDER_PNAME'][] = $item->getName();
-                $data['ORDER_PCODE'][] = $item->getParameters('sku');
+                $data['ORDER_PCODE'][] = $item->getSku();
                 $data['ORDER_PINFO'][] = $item->getDescription() ? $item->getDescription() : "";
                 $data['ORDER_PRICE'][] = $this->formatCurrency($item->getPrice());
                 $data['ORDER_QTY'][] = $item->getQuantity();
-                $data['ORDER_VAT'][] = $item->getVat() ? $item->getVat() : "18";
-                $data['ORDER_PRICE_TYPE'][] = $this->getPriceTypes((string)$item->getParameters('price_type'));
+                $data['ORDER_VAT'][] = isset($item->getParameters()['vat']) ? $item->getParameters()['vat'] : "18";
+                $data['ORDER_PRICE_TYPE'][] = $this->getPriceTypes($item->getPriceType());
             }
         }
+
 
         ksort($data);
         $hashString = "";
         foreach ($data as $key => $val) {
+            $val = is_array($val) ? current($val) : $val;
             $hashString .= mb_strlen($val) . $val;
         }
 
@@ -107,9 +109,16 @@ class AuthorizeRequest extends AbstractRequest
         return parent::getApiUrl() . '/order/alu/v3';
     }
 
-    protected function createResponse($data, $statusCode)
+    /**
+     * @param $data
+     * @param $statusCode
+     * @return AuthorizeResponse
+     */
+    protected function createResponse($data, $statusCode): AuthorizeResponse
     {
-        return $this->response = new Response($this, $data, $statusCode);
+        $response = new AuthorizeResponse($this, $data, $statusCode);
+
+        return $response;
     }
 
     /**
@@ -146,6 +155,19 @@ class AuthorizeRequest extends AbstractRequest
         return $this->setParameter('orderRef', $value);
     }
 
+    public function getCcOwner()
+    {
+        return $this->getParameter('ccOwner');
+    }
+
+    /**
+     * @param string $value
+     * @return AuthorizeRequest
+     */
+    public function setCcOwner(string $value)
+    {
+        return $this->setParameter('ccOwner', $value);
+    }
 
     /**
      * @return mixed
@@ -164,5 +186,33 @@ class AuthorizeRequest extends AbstractRequest
     {
         return $this->setParameter('installmentNumber', $value);
     }
+
+    public function sendData($data)
+    {
+        try {
+            $client = new \GuzzleHttp\Client([
+                'defaults' => [
+                    'verify' => false,
+                    CURLOPT_SSL_VERIFYHOST => false,
+                ],
+            ]);
+
+            $httpRequest = $client->request('POST', $this->getEndpoint(), [
+                'form_params' => $data,
+            ]);
+
+            $body = $httpRequest->getBody()->getContents();
+            $parsedXML = @simplexml_load_string($body);
+            $content = json_decode(json_encode((array)$parsedXML), true);
+
+            return $this->response = $this->createResponse($content, $httpRequest->getStatusCode());
+        } catch (\Exception $e) {
+            throw new InvalidResponseException(
+                'Error communicating with payment gateway: ' . $e->getMessage(),
+                $e->getCode()
+            );
+        }
+    }
+
 }
 

@@ -15,46 +15,21 @@ class Response extends AbstractResponse
 
     public function __construct(RequestInterface $request, $data, $statusCode = 200)
     {
-        var_dump($request,$data);exit;
         parent::__construct($request, $data);
         $this->statusCode = $statusCode;
     }
 
+    /**
+     * @return boolean
+     */
     public function isSuccessful()
     {
-        return empty($this->data['error']) && $this->getCode() < 400;
-    }
 
-    public function getTransactionReference()
-    {
-        // This is usually correct for payments, authorizations, etc
-        if (!empty($this->data['transactions']) && !empty($this->data['transactions'][0]['related_resources'])) {
-            foreach (array('sale', 'authorization') as $type) {
-                if (!empty($this->data['transactions'][0]['related_resources'][0][$type])) {
-                    return $this->data['transactions'][0]['related_resources'][0][$type]['id'];
-                }
-            }
+        if ('SUCCESS' !== $this->data['STATUS']) {
+            return false;
         }
 
-        // This is a fallback, but is correct for fetch transaction and possibly others
-        if (!empty($this->data['id'])) {
-            return $this->data['id'];
-        }
-
-        return null;
-    }
-
-    public function getMessage()
-    {
-        if (isset($this->data['error_description'])) {
-            return $this->data['error_description'];
-        }
-
-        if (isset($this->data['message'])) {
-            return $this->data['message'];
-        }
-
-        return null;
+        return true;
     }
 
     public function getCode()
@@ -62,10 +37,4 @@ class Response extends AbstractResponse
         return $this->statusCode;
     }
 
-    public function getCardReference()
-    {
-        if (isset($this->data['id'])) {
-            return $this->data['id'];
-        }
-    }
 }
