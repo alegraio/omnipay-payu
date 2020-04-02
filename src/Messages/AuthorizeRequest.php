@@ -6,9 +6,27 @@
 namespace Omnipay\PayU\Messages;
 
 
+use Omnipay\Common\ItemBag;
+use Omnipay\PayU\PayUItemBag;
+
 class AuthorizeRequest extends AbstractRequest
 {
     use ConstantTrait;
+
+    /**
+     * Set the items in this order
+     *
+     * @param array $items An array of items in this order
+     * @return AuthorizeRequest
+     */
+    public function setItems($items)
+    {
+        if ($items && !$items instanceof ItemBag) {
+            $items = new PayUItemBag($items);
+        }
+
+        return $this->setParameter('items', $items);
+    }
 
     public function getData()
     {
