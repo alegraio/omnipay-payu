@@ -6,6 +6,7 @@
 namespace Omnipay\PayU\Messages;
 
 use Omnipay\Common\Exception\InvalidResponseException;
+use Omnipay\Common\Message\ResponseInterface;
 
 
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
@@ -88,6 +89,11 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return str_replace('\\/', '/', json_encode($data, $options));
     }
 
+    /**
+     * @param mixed $data
+     * @return ResponseInterface|Response
+     * @throws InvalidResponseException
+     */
     public function sendData($data)
     {
         try {

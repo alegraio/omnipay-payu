@@ -8,7 +8,6 @@ namespace Omnipay\PayU\Messages;
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RequestInterface;
 
-
 class Response extends AbstractResponse
 {
     protected $statusCode;

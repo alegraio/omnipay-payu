@@ -1,5 +1,5 @@
 {
-  "name": "omnipay/payU",
+  "name": "omnipay/payu",
   "type": "library",
   "description": "Payu gateway for Omnipay payment processing library",
   "homepage": "https://git.alegradigital.com/microservices/payment-payu",
@@ -11,7 +11,8 @@
   },
   "require": {
     "omnipay/common": "^3",
-    "ext-json": "*"
+    "ext-json": "*",
+    "ext-simplexml": "*"
   },
   "require-dev": {
     "omnipay/tests": "^3",

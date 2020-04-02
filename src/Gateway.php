@@ -6,6 +6,7 @@
 namespace Omnipay\PayU;
 
 use Omnipay\Common\AbstractGateway;
+use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\Common\Message\RequestInterface;
 
 
@@ -62,7 +63,7 @@ class Gateway extends AbstractGateway
 
     /**
      * @param array $parameters
-     * @return \Omnipay\Common\Message\AbstractRequest|RequestInterface
+     * @return AbstractRequest|RequestInterface
      */
     public function purchase(array $parameters = [])
     {
@@ -77,6 +78,5 @@ class Gateway extends AbstractGateway
     {
         return $this->setParameter('secret', $value);
     }
-
 
 }

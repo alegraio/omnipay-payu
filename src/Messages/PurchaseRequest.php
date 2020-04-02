@@ -5,12 +5,10 @@
 
 namespace Omnipay\PayU\Messages;
 
-
 class PurchaseRequest extends AuthorizeRequest
 {
     public function getData()
     {
-        $data = parent::getData();
-        return $data;
+        return parent::getData();
     }
 }

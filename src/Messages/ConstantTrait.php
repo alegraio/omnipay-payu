@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Omnipay\PayU\Messages;
-
 
 trait ConstantTrait
 {

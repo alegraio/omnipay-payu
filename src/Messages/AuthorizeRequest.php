@@ -6,8 +6,6 @@
 namespace Omnipay\PayU\Messages;
 
 
-use Omnipay\Common\Exception\InvalidResponseException;
-
 class AuthorizeRequest extends AbstractRequest
 {
     use ConstantTrait;
@@ -116,9 +114,7 @@ class AuthorizeRequest extends AbstractRequest
      */
     protected function createResponse($data, $statusCode): AuthorizeResponse
     {
-        $response = new AuthorizeResponse($this, $data, $statusCode);
-
-        return $response;
+        return new AuthorizeResponse($this, $data, $statusCode);
     }
 
     /**
