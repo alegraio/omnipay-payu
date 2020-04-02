@@ -187,32 +187,5 @@ class AuthorizeRequest extends AbstractRequest
         return $this->setParameter('installmentNumber', $value);
     }
 
-    public function sendData($data)
-    {
-        try {
-            $client = new \GuzzleHttp\Client([
-                'defaults' => [
-                    'verify' => false,
-                    CURLOPT_SSL_VERIFYHOST => false,
-                ],
-            ]);
-
-            $httpRequest = $client->request('POST', $this->getEndpoint(), [
-                'form_params' => $data,
-            ]);
-
-            $body = $httpRequest->getBody()->getContents();
-            $parsedXML = @simplexml_load_string($body);
-            $content = json_decode(json_encode((array)$parsedXML), true);
-
-            return $this->response = $this->createResponse($content, $httpRequest->getStatusCode());
-        } catch (\Exception $e) {
-            throw new InvalidResponseException(
-                'Error communicating with payment gateway: ' . $e->getMessage(),
-                $e->getCode()
-            );
-        }
-    }
-
 }
 
