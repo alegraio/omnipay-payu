@@ -5,12 +5,12 @@ namespace Omnipay\Tests;
 use Omnipay\Common\CreditCard;
 use Omnipay\PayU\Messages\AuthorizeResponse;
 use Omnipay\PayU\Messages\Item;
-use Omnipay\PayU\Gateway;
+use Omnipay\PayU\PayUGateway;
 
 
 class GatewayTest extends GatewayTestCase
 {
-    /** @var Gateway */
+    /** @var PayUGateway */
     public $gateway;
 
     /** @var array */
@@ -21,8 +21,8 @@ class GatewayTest extends GatewayTestCase
 
     public function setUp()
     {
-        /** @var Gateway gateway */
-        $this->gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest());
+        /** @var PayUGateway gateway */
+        $this->gateway = new PayUGateway($this->getHttpClient(), $this->getHttpRequest());
         $this->gateway->setSecret('SECRET_KEY');
         $this->gateway->setClientId('OPU_TEST');
     }

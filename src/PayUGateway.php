@@ -21,7 +21,7 @@ use Omnipay\Common\Message\RequestInterface;
  * @method \Omnipay\Common\Message\RequestInterface updateCard(array $options = array())
  * @method \Omnipay\Common\Message\RequestInterface deleteCard(array $options = array())
  */
-class Gateway extends AbstractGateway
+class PayUGateway extends AbstractGateway
 {
 
     /**
@@ -53,7 +53,7 @@ class Gateway extends AbstractGateway
 
     /**
      * @param string $value
-     * @return Gateway
+     * @return PayUGateway
      */
     public function setClientId(string $value)
     {
@@ -72,7 +72,7 @@ class Gateway extends AbstractGateway
 
     /**
      * @param string $value
-     * @return Gateway
+     * @return PayUGateway
      */
     public function setSecret(string $value)
     {
