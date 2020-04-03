@@ -4,8 +4,8 @@ namespace Omnipay\Tests;
 
 use Omnipay\Common\CreditCard;
 use Omnipay\PayU\Messages\AuthorizeResponse;
-use Omnipay\PayU\Messages\Item;
 use Omnipay\PayU\PayUGateway;
+use Omnipay\PayU\PayUItem;
 
 
 class GatewayTest extends GatewayTestCase
@@ -22,9 +22,9 @@ class GatewayTest extends GatewayTestCase
     public function setUp()
     {
         /** @var PayUGateway gateway */
-        $this->gateway = new PayUGateway($this->getHttpClient(), $this->getHttpRequest());
-        $this->gateway->setSecret('SECRET_KEY');
-        $this->gateway->setClientId('OPU_TEST');
+        $this->gateway = new PayUGateway(null, $this->getHttpRequest());
+        $this->gateway->setSecret('f*%J7z6_#|5]s7V4[g3]');
+        $this->gateway->setClientId('PALJZXGV');
     }
 
     public function testPurchase()
@@ -41,27 +41,28 @@ class GatewayTest extends GatewayTestCase
         ];
 
         $cardInfo = $this->getValidCard();
-        $cardInfo['number'] = '4355084355084358';
+        $cardInfo['number'] = '5571135571135575';
         $cardInfo['expiryMonth'] = "12";
         $cardInfo['expiryYear'] = "2022";
         $cardInfo['cvv'] = "000";
         $card = new CreditCard($cardInfo);
         $card->setEmail("mail@mail.com");
         $card->setShippingCompany('test');
+        $card->setBillingFax('02123234534');
 
-        $items = new Item();
+        $items = new PayUItem();
         foreach ($products as $product) {
             $items->setName($product['name']);
             $items->setPrice($product['price']);
             $items->setQuantity($product['quantity']);
             $items->setDescription($product['description']);
-            $items->setParameter('sku', $product['sku']);
-            $items->setParameter('price_type', $product['price_type']);
+            $items->setSku($product['sku']);
+            $items->setPriceType($product['price_type']);
         }
 
         $this->options = [
             'card' => $card,
-            'orderRef' => '1241040404',
+            'orderRef' => '992040404',
             'paymentMethod' => 'credit_card',
             'items' => [$items],
             'installmentNumber' => "1",
