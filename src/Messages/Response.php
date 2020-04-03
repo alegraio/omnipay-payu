@@ -68,7 +68,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getRedirectUrl()
     {
@@ -76,7 +76,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
             return $this->data['URL_3DS'];
         }
 
-        return false;
+        return null;
     }
 
 }
