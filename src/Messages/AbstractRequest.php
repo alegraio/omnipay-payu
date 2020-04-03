@@ -77,19 +77,6 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     }
 
     /**
-     * @param $data
-     * @param int $options
-     * @return false|mixed|string
-     */
-    public function toJSON($data, $options = 0)
-    {
-        if (version_compare(phpversion(), '5.4.0', '>=') === true) {
-            return json_encode($data, $options | 64);
-        }
-        return str_replace('\\/', '/', json_encode($data, $options));
-    }
-
-    /**
      * @param mixed $data
      * @return ResponseInterface|Response
      * @throws InvalidResponseException

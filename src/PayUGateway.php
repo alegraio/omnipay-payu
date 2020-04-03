@@ -14,8 +14,6 @@ use Omnipay\Common\Message\RequestInterface;
  * @method \Omnipay\Common\Message\RequestInterface authorize(array $options = array())
  * @method \Omnipay\Common\Message\RequestInterface completeAuthorize(array $options = array())
  * @method \Omnipay\Common\Message\RequestInterface capture(array $options = array())
- * @method \Omnipay\Common\Message\RequestInterface completePurchase(array $options = array())
- * @method \Omnipay\Common\Message\RequestInterface refund(array $options = array())
  * @method \Omnipay\Common\Message\RequestInterface void(array $options = array())
  * @method \Omnipay\Common\Message\RequestInterface createCard(array $options = array())
  * @method \Omnipay\Common\Message\RequestInterface updateCard(array $options = array())
@@ -68,6 +66,25 @@ class PayUGateway extends AbstractGateway
     public function purchase(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\PayU\Messages\PurchaseRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     * @return AbstractRequest|RequestInterface
+     */
+    public function completePurchase(array $parameters = [])
+    {
+        return $this->createRequest('\Omnipay\PayU\Messages\CompletePurchaseRequest', $parameters);
+    }
+
+
+    /**
+     * @param array $parameters
+     * @return AbstractRequest|RequestInterface
+     */
+    public function refund(array $parameters = [])
+    {
+        return $this->createRequest('\Omnipay\PayU\Messages\RefundRequest', $parameters);
     }
 
     /**

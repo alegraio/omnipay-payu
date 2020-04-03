@@ -4,8 +4,10 @@ namespace Omnipay\Tests;
 
 use Omnipay\Common\CreditCard;
 use Omnipay\PayU\Messages\AuthorizeResponse;
+use Omnipay\PayU\Messages\CompletePurchaseResponse;
+use Omnipay\PayU\Messages\RefundResponse;
 use Omnipay\PayU\PayUGateway;
-use Omnipay\PayU\PayUItem;
+use Omnipay\PayU\PayUItemBag;
 
 
 class GatewayTest extends GatewayTestCase
@@ -15,9 +17,6 @@ class GatewayTest extends GatewayTestCase
 
     /** @var array */
     public $options;
-
-    /** @var array */
-    public $subscription_options;
 
     public function setUp()
     {
@@ -37,8 +36,21 @@ class GatewayTest extends GatewayTestCase
                 'quantity' => "10",
                 'price' => "10",
                 'price_type' => 'with_vat'
+            ],
+            [
+                'name' => 'TestYILYIL1',
+                'sku' => 'Test98765431',
+                'description' => 'testtets1',
+                'quantity' => "3",
+                'price' => "50",
+                'price_type' => 'with_vat'
             ]
         ];
+
+        $allItem = new PayUItemBag();
+        foreach ($products as $product) {
+            $allItem->add($product);
+        }
 
         $cardInfo = $this->getValidCard();
         $cardInfo['number'] = '5571135571135575';
@@ -47,31 +59,47 @@ class GatewayTest extends GatewayTestCase
         $cardInfo['cvv'] = "000";
         $card = new CreditCard($cardInfo);
         $card->setEmail("mail@mail.com");
-        $card->setShippingCompany('test');
-        $card->setBillingFax('02123234534');
-
-        $items = new PayUItem();
-        foreach ($products as $product) {
-            $items->setName($product['name']);
-            $items->setPrice($product['price']);
-            $items->setQuantity($product['quantity']);
-            $items->setDescription($product['description']);
-            $items->setSku($product['sku']);
-            $items->setPriceType($product['price_type']);
-        }
 
         $this->options = [
             'card' => $card,
-            'orderRef' => '992040404',
+            'orderRef' => '252343532',
             'paymentMethod' => 'credit_card',
-            'items' => [$items],
             'installmentNumber' => "1",
-            'ccOwner' => '000'
+            'ccOwner' => '000',
+            'returnUrl' => "www.backref.com.tr",
+            'items' => $allItem
         ];
-
 
         /** @var AuthorizeResponse $response */
         $response = $this->gateway->purchase($this->options)->send();
+        $this->assertTrue($response->isSuccessful());
+    }
+
+    public function testCompletePurchase()
+    {
+
+        $this->options = [
+            'orderRef' => '452584931',
+            'idnDate' => date('Y-m-d H:i:s', time()),
+            'amount' => '250'
+        ];
+
+        /** @var CompletePurchaseResponse $response */
+        $response = $this->gateway->completePurchase($this->options)->send();
+        $this->assertTrue($response->isSuccessful());
+    }
+
+    public function testRefund()
+    {
+        $this->options = [
+            'orderRef' => '152584931',
+            'orderAmount' => '250',
+            'irnDate' => date('Y-m-d H:i:s.0', time()),
+            'amount' => '50'
+        ];
+
+        /** @var RefundResponse $response */
+        $response = $this->gateway->refund($this->options)->send();
         $this->assertTrue($response->isSuccessful());
     }
 }
