@@ -182,10 +182,10 @@ class AuthorizeRequest extends AbstractRequest
     }
 
     /**
-     * @param $value
+     * @param string $value
      * @return AuthorizeRequest
      */
-    public function setCcOwner($value)
+    public function setCcOwner(string $value)
     {
         return $this->setParameter('ccOwner', $value);
     }
