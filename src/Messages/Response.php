@@ -6,9 +6,10 @@
 namespace Omnipay\PayU\Messages;
 
 use Omnipay\Common\Message\AbstractResponse;
+use Omnipay\Common\Message\RedirectResponseInterface;
 use Omnipay\Common\Message\RequestInterface;
 
-class Response extends AbstractResponse
+class Response extends AbstractResponse implements RedirectResponseInterface
 {
     protected $statusCode;
 
@@ -34,6 +35,48 @@ class Response extends AbstractResponse
     public function getCode()
     {
         return $this->statusCode;
+    }
+
+    public function getTransactionReference()
+    {
+        if (!empty($this->data['REFNO'])) {
+            return $this->data['REFNO'];
+        }
+
+        return null;
+    }
+
+    public function getMessage()
+    {
+        if (!empty($this->data['RETURN_MESSAGE'])) {
+            return $this->data['RETURN_CODE'] . " : " . $this->data['RETURN_MESSAGE'];
+        }
+
+        return null;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRedirect()
+    {
+        if (!empty($this->data['RETURN_CODE']) && $this->data['RETURN_CODE'] === '3DS_ENROLLED') {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRedirectUrl()
+    {
+        if (!empty($this->data['RETURN_CODE']) && $this->data['RETURN_CODE'] === '3DS_ENROLLED') {
+            return $this->data['URL_3DS'];
+        }
+
+        return false;
     }
 
 }
