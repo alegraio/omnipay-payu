@@ -7,6 +7,7 @@ namespace Omnipay\PayU\Messages;
 
 
 use Omnipay\Common\ItemBag;
+use Omnipay\PayU\PayUItem;
 use Omnipay\PayU\PayUItemBag;
 
 class AuthorizeRequest extends AbstractRequest
@@ -70,7 +71,7 @@ class AuthorizeRequest extends AbstractRequest
 
         $items = $this->getItems();
         if ($items) {
-            /** @var Item $item */
+            /** @var PayUItem $item */
             foreach ($items as $item) {
                 $data['ORDER_PNAME'][] = $item->getName();
                 $data['ORDER_PCODE'][] = $item->getSku();
