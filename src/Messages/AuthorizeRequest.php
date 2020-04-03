@@ -42,7 +42,7 @@ class AuthorizeRequest extends AbstractRequest
             "EXP_MONTH" => $this->getCard()->getExpiryMonth(),
             "EXP_YEAR" => $this->getCard()->getExpiryYear(),
             "CC_CVV" => $this->getCard()->getCvv(),
-            "CC_OWNER" => $this->getCcOwner(),
+            "CC_OWNER" => $this->getCard()->getName(),
             "BILL_FNAME" => $this->getCard()->getBillingFirstName(),
             "BILL_LNAME" => $this->getCard()->getBillingLastName(),
             "BILL_EMAIL" => $this->getCard()->getEmail(),
@@ -168,11 +168,6 @@ class AuthorizeRequest extends AbstractRequest
     public function setOrderRef($value)
     {
         return $this->setParameter('orderRef', $value);
-    }
-
-    public function getCcOwner()
-    {
-        return $this->getParameter('ccOwner');
     }
 
     /**
