@@ -35,7 +35,7 @@ class AuthorizeRequest extends AbstractRequest
             "MERCHANT" => $this->getClientId(),
             "LANGUAGE" => $this->getLang(),
             "ORDER_REF" => $this->getOrderRef(),
-            "ORDER_DATE" => date('Y-m-d H:i:s'),
+            "ORDER_DATE" => gmdate('Y-m-d H:i:s'),
             "PAY_METHOD" => $this->getPaymentMethods($this->getPaymentMethod()),
             "PRICES_CURRENCY" => $this->getCurrency() ? $this->getCurrency() : static::$DEFAULT_CURRENCY,
             "CC_NUMBER" => $this->getCard()->getNumber(),
