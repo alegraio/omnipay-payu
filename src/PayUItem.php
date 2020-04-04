@@ -35,4 +35,15 @@ class PayUItem extends Item implements PayUItemInterface
     {
         return $this->getParameter('price_type') ?? 'with_vat';
     }
+
+    public function getVat()
+    {
+        return $this->getParameter('vat') ?? '18';
+    }
+
+    public function setVat(string $value)
+    {
+        return $this->setParameter('vat', $value);
+    }
+
 }

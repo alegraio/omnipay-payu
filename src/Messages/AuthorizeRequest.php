@@ -37,61 +37,59 @@ class AuthorizeRequest extends AbstractRequest
             "ORDER_REF" => $this->getOrderRef(),
             "ORDER_DATE" => gmdate('Y-m-d H:i:s'),
             "PAY_METHOD" => $this->getPaymentMethods($this->getPaymentMethod()),
-            "PRICES_CURRENCY" => $this->getCurrency() ? $this->getCurrency() : static::$DEFAULT_CURRENCY,
-            "CC_NUMBER" => $this->getCard()->getNumber(),
+            "PRICES_CURRENCY" => $this->getCurrency() ?? static::$DEFAULT_CURRENCY,
+            "CC_NUMBER" => $this->getCard()->getNumber() ?? '',
             "EXP_MONTH" => $this->getCard()->getExpiryMonth(),
             "EXP_YEAR" => $this->getCard()->getExpiryYear(),
             "CC_CVV" => $this->getCard()->getCvv(),
-            "CC_OWNER" => $this->getCard()->getName(),
-            "BILL_FNAME" => $this->getCard()->getBillingFirstName(),
-            "BILL_LNAME" => $this->getCard()->getBillingLastName(),
-            "BILL_EMAIL" => $this->getCard()->getEmail(),
-            "BILL_PHONE" => $this->getCard()->getBillingPhone(),
-            "BILL_FAX" => $this->getCard()->getBillingFax(),
-            "BILL_ADDRESS" => $this->getCard()->getBillingAddress1(),
-            "BILL_ADDRESS2" => $this->getCard()->getBillingAddress2(),
-            "BILL_ZIPCODE" => $this->getCard()->getBillingPostcode(),
-            "BILL_CITY" => $this->getCard()->getBillingCity(),
-            "BILL_COUNTRYCODE" => $this->getCard()->getBillingCountry(),
-            "BILL_STATE" => $this->getCard()->getBillingState(),
-            "DELIVERY_FNAME" => $this->getCard()->getShippingFirstName(),
-            "DELIVERY_LNAME" => $this->getCard()->getShippingLastName(),
-            "DELIVERY_EMAIL" => $this->getCard()->getEmail(),
-            "DELIVERY_PHONE" => $this->getCard()->getShippingPhone(),
-            "DELIVERY_COMPANY" => $this->getCard()->getShippingCompany(),
-            "DELIVERY_ADDRESS" => $this->getCard()->getShippingAddress1(),
-            "DELIVERY_ADDRESS2" => $this->getCard()->getShippingAddress2(),
-            "DELIVERY_ZIPCODE" => $this->getCard()->getShippingPostcode(),
-            "DELIVERY_CITY" => $this->getCard()->getShippingCity(),
-            "DELIVERY_STATE" => $this->getCard()->getShippingCity(),
-            "DELIVERY_COUNTRYCODE" => $this->getCard()->getShippingState(),
+            "CC_OWNER" => $this->getCard()->getName() ?? '',
+            "BILL_FNAME" => $this->getCard()->getBillingFirstName() ?? '',
+            "BILL_LNAME" => $this->getCard()->getBillingLastName() ?? '',
+            "BILL_EMAIL" => $this->getCard()->getEmail() ?? '',
+            "BILL_PHONE" => $this->getCard()->getBillingPhone() ?? '',
+            "BILL_FAX" => $this->getCard()->getBillingFax() ?? '',
+            "BILL_ADDRESS" => $this->getCard()->getBillingAddress1() ?? '',
+            "BILL_ADDRESS2" => $this->getCard()->getBillingAddress2() ?? '',
+            "BILL_ZIPCODE" => $this->getCard()->getBillingPostcode() ?? '',
+            "BILL_CITY" => $this->getCard()->getBillingCity() ?? '',
+            "BILL_COUNTRYCODE" => $this->getCard()->getBillingCountry() ?? '',
+            "BILL_STATE" => $this->getCard()->getBillingState() ?? '',
+            "DELIVERY_FNAME" => $this->getCard()->getShippingFirstName() ?? '',
+            "DELIVERY_LNAME" => $this->getCard()->getShippingLastName() ?? '',
+            "DELIVERY_EMAIL" => $this->getCard()->getEmail() ?? '',
+            "DELIVERY_PHONE" => $this->getCard()->getShippingPhone() ?? '',
+            "DELIVERY_COMPANY" => $this->getCard()->getShippingCompany() ?? '',
+            "DELIVERY_ADDRESS" => $this->getCard()->getShippingAddress1() ?? '',
+            "DELIVERY_ADDRESS2" => $this->getCard()->getShippingAddress2() ?? '',
+            "DELIVERY_ZIPCODE" => $this->getCard()->getShippingPostcode() ?? '',
+            "DELIVERY_CITY" => $this->getCard()->getShippingCity() ?? '',
+            "DELIVERY_STATE" => $this->getCard()->getShippingCity() ?? '',
+            "DELIVERY_COUNTRYCODE" => $this->getCard()->getShippingState() ?? '',
+            "BACK_REF" => $this->getReturnUrl() ?? '',
         ];
 
         $data['SELECTED_INSTALLMENTS_NUMBER'] = !empty($this->getInstallmentNumber()) ? $this->getInstallmentNumber() : "1";
 
         $items = $this->getItems();
-        if ($items) {
-            /** @var PayUItem $item */
-            foreach ($items as $item) {
-                $data['ORDER_PNAME'][] = $item->getName();
-                $data['ORDER_PCODE'][] = $item->getSku();
-                $data['ORDER_PINFO'][] = $item->getDescription() ? $item->getDescription() : "";
-                $data['ORDER_PRICE'][] = $this->formatCurrency($item->getPrice());
-                $data['ORDER_QTY'][] = $item->getQuantity();
-                $data['ORDER_VAT'][] = isset($item->getParameters()['vat']) ? $item->getParameters()['vat'] : "18";
-                $data['ORDER_PRICE_TYPE'][] = $this->getPriceTypes($item->getPriceType());
-            }
-        }
+        /** @var PayUItem $item */
+        foreach ($items as $item) {
+            $data['ORDER_PNAME'][] = $item->getName();
+            $data['ORDER_PCODE'][] = $item->getSku();
+            $data['ORDER_PINFO'][] = $item->getDescription() ?? '';
+            $data['ORDER_PRICE'][] = $this->formatCurrency($item->getPrice());
+            $data['ORDER_QTY'][] = $item->getQuantity();
+            $data['ORDER_VAT'][] = $item->getVat();
+            $data['ORDER_PRICE_TYPE'][] = $this->getPriceTypes($item->getPriceType());
+        };
 
 
         ksort($data);
-        $hashString = "";
-        foreach ($data as $key => $val) {
-            $val = is_array($val) ? current($val) : $val;
-            $hashString .= mb_strlen($val) . $val;
-        }
+        $hashStringData = array_map(function ($val) {
+            return $this->getHashString($val);
+        }, $data);
 
-        $data["ORDER_HASH"] = hash_hmac("md5", $hashString, $this->getSecret());
+        $hashString = implode("", $hashStringData);
+        $data["ORDER_HASH"] = hash_hmac("md5", (string)$hashString, $this->getSecret());
 
         return $data;
     }
@@ -141,7 +139,7 @@ class AuthorizeRequest extends AbstractRequest
      */
     public function getLang(): string
     {
-        return $this->getParameter('lang') ? $this->getParameter('secret') : self::DEFAULT_LANG;
+        return $this->getParameter('lang') ? $this->getParameter('lang') : self::DEFAULT_LANG;
     }
 
     /**
@@ -165,18 +163,26 @@ class AuthorizeRequest extends AbstractRequest
      * @param $value
      * @return AuthorizeRequest
      */
-    public function setOrderRef($value)
+    public function setOrderDate($value)
     {
-        return $this->setParameter('orderRef', $value);
+        return $this->setParameter('orderDate', $value);
     }
 
     /**
-     * @param string $value
+     * @return mixed
+     */
+    public function getOrderDate()
+    {
+        return $this->getParameter('orderDate');
+    }
+
+    /**
+     * @param $value
      * @return AuthorizeRequest
      */
-    public function setCcOwner(string $value)
+    public function setOrderRef($value)
     {
-        return $this->setParameter('ccOwner', $value);
+        return $this->setParameter('orderRef', $value);
     }
 
     /**
@@ -197,5 +203,23 @@ class AuthorizeRequest extends AbstractRequest
         return $this->setParameter('installmentNumber', $value);
     }
 
+
+    /**
+     * @param $val
+     * @return string
+     */
+    private function getHashString($val)
+    {
+        $hashString = '';
+        if (is_array($val)) {
+            foreach ($val as $subVal) {
+                $hashString .= mb_strlen($subVal) . $subVal;
+            }
+        } else {
+            $hashString .= mb_strlen($val) . $val;
+        }
+
+        return $hashString;
+    }
 }
 

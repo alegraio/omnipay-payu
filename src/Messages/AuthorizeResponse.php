@@ -10,5 +10,4 @@ use Omnipay\Common\Message\RedirectResponseInterface;
 class AuthorizeResponse extends Response implements RedirectResponseInterface
 {
 
-
 }
