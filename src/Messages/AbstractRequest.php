@@ -100,9 +100,4 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
             );
         }
     }
-
-    protected function createResponse($data, $statusCode)
-    {
-        return $this->response = new Response($this, $data, $statusCode);
-    }
 }

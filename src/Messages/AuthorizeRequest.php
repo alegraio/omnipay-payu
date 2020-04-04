@@ -42,7 +42,7 @@ class AuthorizeRequest extends AbstractRequest
             "EXP_MONTH" => $this->getCard()->getExpiryMonth(),
             "EXP_YEAR" => $this->getCard()->getExpiryYear(),
             "CC_CVV" => $this->getCard()->getCvv(),
-            "CC_OWNER" => $this->getCcOwner() ?? '',
+            "CC_OWNER" => $this->getCard()->getName() ?? '',
             "BILL_FNAME" => $this->getCard()->getBillingFirstName() ?? '',
             "BILL_LNAME" => $this->getCard()->getBillingLastName() ?? '',
             "BILL_EMAIL" => $this->getCard()->getEmail() ?? '',
@@ -80,21 +80,16 @@ class AuthorizeRequest extends AbstractRequest
             $data['ORDER_QTY'][] = $item->getQuantity();
             $data['ORDER_VAT'][] = $item->getVat();
             $data['ORDER_PRICE_TYPE'][] = $this->getPriceTypes($item->getPriceType());
-        }
+        };
+
 
         ksort($data);
-        $hashString = "";
-        foreach ($data as $key => $val) {
-            if (is_array($val)) {
-                foreach ($val as $subVal) {
-                    $hashString .= mb_strlen($subVal) . $subVal;
-                }
-            } else {
-                $hashString .= mb_strlen($val) . $val;
-            }
-        }
+        $hashStringData = array_map(function ($val) {
+            return $this->getHashString($val);
+        }, $data);
 
-        $data["ORDER_HASH"] = hash_hmac("md5", $hashString, $this->getSecret());
+        $hashString = implode("", $hashStringData);
+        $data["ORDER_HASH"] = hash_hmac("md5", (string)$hashString, $this->getSecret());
 
         return $data;
     }
@@ -182,23 +177,6 @@ class AuthorizeRequest extends AbstractRequest
     }
 
     /**
-     * @param string $value
-     * @return AuthorizeRequest
-     */
-    public function setCcOwner(string $value)
-    {
-        return $this->setParameter('ccOwner', $value);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCcOwner()
-    {
-        return $this->getParameter('ccOwner');
-    }
-
-    /**
      * @param $value
      * @return AuthorizeRequest
      */
@@ -225,5 +203,23 @@ class AuthorizeRequest extends AbstractRequest
         return $this->setParameter('installmentNumber', $value);
     }
 
+
+    /**
+     * @param $val
+     * @return string
+     */
+    private function getHashString($val)
+    {
+        $hashString = '';
+        if (is_array($val)) {
+            foreach ($val as $subVal) {
+                $hashString .= mb_strlen($subVal) . $subVal;
+            }
+        } else {
+            $hashString .= mb_strlen($val) . $val;
+        }
+
+        return $hashString;
+    }
 }
 

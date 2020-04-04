@@ -22,8 +22,8 @@ class GatewayTest extends GatewayTestCase
     {
         /** @var PayUGateway gateway */
         $this->gateway = new PayUGateway(null, $this->getHttpRequest());
-        $this->gateway->setSecret('f*%J7z6_#|5]s7V4[g3]');
-        $this->gateway->setClientId('PALJZXGV');
+        $this->gateway->setSecret('SECRET_KEY');
+        $this->gateway->setClientId('OPU_TEST');
     }
 
     public function testPurchase()
@@ -62,7 +62,7 @@ class GatewayTest extends GatewayTestCase
 
         $this->options = [
             'card' => $card,
-            'orderRef' => '252343532',
+            'orderRef' => '4442343532',
             'paymentMethod' => 'credit_card',
             'installmentNumber' => "1",
             'ccOwner' => '000',
@@ -79,8 +79,7 @@ class GatewayTest extends GatewayTestCase
     {
 
         $this->options = [
-            'orderRef' => '452584931',
-            'idnDate' => date('Y-m-d H:i:s', time()),
+            'orderRef' => '152703214',
             'amount' => '250'
         ];
 
@@ -94,7 +93,6 @@ class GatewayTest extends GatewayTestCase
         $this->options = [
             'orderRef' => '152584931',
             'orderAmount' => '250',
-            'irnDate' => date('Y-m-d H:i:s.0', time()),
             'amount' => '50'
         ];
 

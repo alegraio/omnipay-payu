@@ -5,11 +5,22 @@
 
 namespace Omnipay\PayU\Messages;
 
+use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RedirectResponseInterface;
+use Omnipay\Common\Message\RequestInterface;
 
-class CompletePurchaseResponse extends Response implements RedirectResponseInterface
+class CompletePurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {
     const SUCCESS_CODES = [1, 7];
+    protected $statusCode;
+
+    public function __construct(RequestInterface $request, $data, $statusCode = 200)
+    {
+        parent::__construct($request, $data);
+        $this->statusCode = $statusCode;
+        $data = explode('|', current($this->getData()));
+        $this->setData($data);
+    }
 
     /**
      * @return bool
@@ -37,5 +48,14 @@ class CompletePurchaseResponse extends Response implements RedirectResponseInter
         }
 
         return null;
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    public function setData(array $data): array
+    {
+        return $this->data = $data;
     }
 }

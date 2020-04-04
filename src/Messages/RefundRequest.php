@@ -88,7 +88,7 @@ class RefundRequest extends AbstractRequest
      */
     public function getIrnDate()
     {
-        return $this->getParameter('irnDate') ?? date('Y-m-d H:i:s');
+        return $this->getParameter('irnDate') ?? gmdate('Y-m-d H:i:s');
     }
 
     /**
@@ -98,32 +98,6 @@ class RefundRequest extends AbstractRequest
     public function setIrnDate($value)
     {
         return $this->setParameter('irnDate', $value);
-    }
-
-    /**
-     * @param mixed $data
-     * @return ResponseInterface|RefundResponse|Response
-     * @throws InvalidResponseException
-     */
-    public function sendData($data)
-    {
-        try {
-            $httpRequest = $this->httpClient->request('POST', $this->getEndpoint(),
-                ['Content-Type' => 'application/x-www-form-urlencoded'],
-                http_build_query($data, '', '&'));
-
-            $body = $httpRequest->getBody()->getContents();
-            $parsedXML = @simplexml_load_string($body);
-            $content = json_decode(json_encode((array)$parsedXML), true);
-            $content = explode("|", current($content));
-
-            return $this->response = $this->createResponse($content, $httpRequest->getStatusCode());
-        } catch (\Exception $e) {
-            throw new InvalidResponseException(
-                'Error communicating with payment gateway: ' . $e->getMessage(),
-                $e->getCode()
-            );
-        }
     }
 
     /**

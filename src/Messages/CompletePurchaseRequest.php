@@ -71,7 +71,7 @@ class CompletePurchaseRequest extends AbstractRequest
      */
     public function getIdnDate()
     {
-        return $this->getParameter('idnDate') ?? date('Y-m-d H:i:s');
+        return $this->getParameter('idnDate') ?? gmdate('Y-m-d H:i:s');
     }
 
     /**
@@ -81,32 +81,6 @@ class CompletePurchaseRequest extends AbstractRequest
     public function setIdnDate($value)
     {
         return $this->setParameter('idnDate', $value);
-    }
-
-    /**
-     * @param mixed $data
-     * @return ResponseInterface|CompletePurchaseResponse|Response
-     * @throws InvalidResponseException
-     */
-    public function sendData($data)
-    {
-        try {
-            $httpRequest = $this->httpClient->request('POST', $this->getEndpoint(),
-                ['Content-Type' => 'application/x-www-form-urlencoded'],
-                http_build_query($data, '', '&'));
-
-            $body = $httpRequest->getBody()->getContents();
-            $parsedXML = @simplexml_load_string($body);
-            $content = json_decode(json_encode((array)$parsedXML), true);
-            $content = explode("|", current($content));
-
-            return $this->response = $this->createResponse($content, $httpRequest->getStatusCode());
-        } catch (\Exception $e) {
-            throw new InvalidResponseException(
-                'Error communicating with payment gateway: ' . $e->getMessage(),
-                $e->getCode()
-            );
-        }
     }
 
     /**
