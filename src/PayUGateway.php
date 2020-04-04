@@ -12,8 +12,8 @@ use Omnipay\Common\Message\RequestInterface;
 
 /**
  * @method \Omnipay\Common\Message\RequestInterface authorize(array $options = array())
- * @method \Omnipay\Common\Message\RequestInterface completeAuthorize(array $options = array())
  * @method \Omnipay\Common\Message\RequestInterface capture(array $options = array())
+ * @method \Omnipay\Common\Message\RequestInterface completePurchase(array $options = array())
  * @method \Omnipay\Common\Message\RequestInterface void(array $options = array())
  * @method \Omnipay\Common\Message\RequestInterface createCard(array $options = array())
  * @method \Omnipay\Common\Message\RequestInterface updateCard(array $options = array())
@@ -72,9 +72,9 @@ class PayUGateway extends AbstractGateway
      * @param array $parameters
      * @return AbstractRequest|RequestInterface
      */
-    public function completePurchase(array $parameters = [])
+    public function completeAuthorize(array $parameters = [])
     {
-        return $this->createRequest('\Omnipay\PayU\Messages\CompletePurchaseRequest', $parameters);
+        return $this->createRequest('\Omnipay\PayU\Messages\CompleteAuthorizeRequest', $parameters);
     }
 
 

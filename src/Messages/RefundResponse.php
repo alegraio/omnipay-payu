@@ -5,7 +5,7 @@
 
 namespace Omnipay\PayU\Messages;
 
-class RefundResponse extends CompletePurchaseResponse
+class RefundResponse extends CompleteAuthorizeResponse
 {
 
 }

@@ -4,7 +4,7 @@ namespace Omnipay\Tests;
 
 use Omnipay\Common\CreditCard;
 use Omnipay\PayU\Messages\AuthorizeResponse;
-use Omnipay\PayU\Messages\CompletePurchaseResponse;
+use Omnipay\PayU\Messages\CompleteAuthorizeResponse;
 use Omnipay\PayU\Messages\RefundResponse;
 use Omnipay\PayU\PayUGateway;
 use Omnipay\PayU\PayUItemBag;
@@ -75,7 +75,7 @@ class GatewayTest extends GatewayTestCase
         $this->assertTrue($response->isSuccessful());
     }
 
-    public function testCompletePurchase()
+    public function testCompleteAuthorize()
     {
 
         $this->options = [
@@ -83,7 +83,7 @@ class GatewayTest extends GatewayTestCase
             'amount' => '250'
         ];
 
-        /** @var CompletePurchaseResponse $response */
+        /** @var CompleteAuthorizeResponse $response */
         $response = $this->gateway->completePurchase($this->options)->send();
         $this->assertTrue($response->isSuccessful());
     }
