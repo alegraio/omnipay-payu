@@ -77,7 +77,6 @@ class PayUGateway extends AbstractGateway
         return $this->createRequest('\Omnipay\PayU\Messages\CompleteAuthorizeRequest', $parameters);
     }
 
-
     /**
      * @param array $parameters
      * @return AbstractRequest|RequestInterface
@@ -85,6 +84,15 @@ class PayUGateway extends AbstractGateway
     public function refund(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\PayU\Messages\RefundRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     * @return AbstractRequest|RequestInterface
+     */
+    public function cardInfoV1(array $parameters = [])
+    {
+        return $this->createRequest('\Omnipay\PayU\Messages\CardInfoV1Request', $parameters);
     }
 
     /**

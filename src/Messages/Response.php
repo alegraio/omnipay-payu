@@ -17,6 +17,9 @@ class Response extends AbstractResponse implements RedirectResponseInterface
     {
         parent::__construct($request, $data);
         $this->statusCode = $statusCode;
+        $parsedXML = @simplexml_load_string($this->getData());
+        $content = json_decode(json_encode((array)$parsedXML), true);
+        $this->setData($content);
     }
 
     /**
@@ -77,6 +80,15 @@ class Response extends AbstractResponse implements RedirectResponseInterface
         }
 
         return null;
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    public function setData(array $data): array
+    {
+        return $this->data = $data;
     }
 
 }

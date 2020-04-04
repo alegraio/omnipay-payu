@@ -18,7 +18,9 @@ class CompleteAuthorizeResponse extends AbstractResponse implements RedirectResp
     {
         parent::__construct($request, $data);
         $this->statusCode = $statusCode;
-        $data = explode('|', current($this->getData()));
+        $parsedXML = @simplexml_load_string($this->getData());
+        $content = json_decode(json_encode((array)$parsedXML), true);
+        $data = explode('|', current($content));
         $this->setData($data);
     }
 

@@ -4,6 +4,7 @@ namespace Omnipay\Tests;
 
 use Omnipay\Common\CreditCard;
 use Omnipay\PayU\Messages\AuthorizeResponse;
+use Omnipay\PayU\Messages\CardInfoV1Response;
 use Omnipay\PayU\Messages\CompleteAuthorizeResponse;
 use Omnipay\PayU\Messages\RefundResponse;
 use Omnipay\PayU\PayUGateway;
@@ -62,7 +63,7 @@ class GatewayTest extends GatewayTestCase
 
         $this->options = [
             'card' => $card,
-            'orderRef' => '4442343532',
+            'orderRef' => '8442343532',
             'paymentMethod' => 'credit_card',
             'installmentNumber' => "1",
             'ccOwner' => '000',
@@ -84,7 +85,7 @@ class GatewayTest extends GatewayTestCase
         ];
 
         /** @var CompleteAuthorizeResponse $response */
-        $response = $this->gateway->completePurchase($this->options)->send();
+        $response = $this->gateway->completeAuthorize($this->options)->send();
         $this->assertTrue($response->isSuccessful());
     }
 
@@ -98,6 +99,17 @@ class GatewayTest extends GatewayTestCase
 
         /** @var RefundResponse $response */
         $response = $this->gateway->refund($this->options)->send();
+        $this->assertTrue($response->isSuccessful());
+    }
+
+    public function testCardInfoV1()
+    {
+        $this->options = [
+            'bin' => '557829'
+        ];
+
+        /** @var CardInfoV1Response $response */
+        $response = $this->gateway->cardInfoV1($this->options)->send();
         $this->assertTrue($response->isSuccessful());
     }
 }
