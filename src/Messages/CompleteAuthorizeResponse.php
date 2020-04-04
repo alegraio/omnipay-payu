@@ -1,6 +1,6 @@
 <?php
 /**
- * PayU Complete Purchase Response
+ * PayU Complete Authorize Response
  */
 
 namespace Omnipay\PayU\Messages;
@@ -9,7 +9,7 @@ use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RedirectResponseInterface;
 use Omnipay\Common\Message\RequestInterface;
 
-class CompletePurchaseResponse extends AbstractResponse implements RedirectResponseInterface
+class CompleteAuthorizeResponse extends AbstractResponse implements RedirectResponseInterface
 {
     const SUCCESS_CODES = [1, 7];
     protected $statusCode;

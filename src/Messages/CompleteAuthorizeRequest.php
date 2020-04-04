@@ -1,14 +1,12 @@
 <?php
 /*
- * PayU Complete Purchase Request
+ * PayU Complete Authorize Request
  */
 
 namespace Omnipay\PayU\Messages;
 
-use Omnipay\Common\Exception\InvalidResponseException;
-use Omnipay\Common\Message\ResponseInterface;
 
-class CompletePurchaseRequest extends AbstractRequest
+class CompleteAuthorizeRequest extends AbstractRequest
 {
     use ConstantTrait;
 
@@ -59,7 +57,7 @@ class CompletePurchaseRequest extends AbstractRequest
 
     /**
      * @param $value
-     * @return CompletePurchaseRequest
+     * @return CompleteAuthorizeRequest
      */
     public function setOrderRef($value)
     {
@@ -76,7 +74,7 @@ class CompletePurchaseRequest extends AbstractRequest
 
     /**
      * @param $value
-     * @return CompletePurchaseRequest
+     * @return CompleteAuthorizeRequest
      */
     public function setIdnDate($value)
     {
@@ -86,10 +84,10 @@ class CompletePurchaseRequest extends AbstractRequest
     /**
      * @param $data
      * @param $statusCode
-     * @return CompletePurchaseResponse
+     * @return CompleteAuthorizeResponse
      */
-    protected function createResponse($data, $statusCode): CompletePurchaseResponse
+    protected function createResponse($data, $statusCode): CompleteAuthorizeResponse
     {
-        return new CompletePurchaseResponse($this, $data, $statusCode);
+        return new CompleteAuthorizeResponse($this, $data, $statusCode);
     }
 }
