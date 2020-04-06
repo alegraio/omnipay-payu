@@ -1,6 +1,6 @@
 <?php
 /**
- * Payu Class using API
+ * PayU Class using API
  */
 
 namespace Omnipay\PayU;
@@ -121,5 +121,4 @@ class PayUGateway extends AbstractGateway
     {
         return $this->setParameter('secret', $value);
     }
-
 }
