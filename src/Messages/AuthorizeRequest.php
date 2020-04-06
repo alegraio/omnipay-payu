@@ -82,13 +82,14 @@ class AuthorizeRequest extends AbstractRequest
             $data['ORDER_PRICE_TYPE'][] = $this->getPriceTypes($item->getPriceType());
         };
 
-
         ksort($data);
-        $hashStringData = array_map(function ($val) {
-            return $this->getHashString($val);
-        }, $data);
 
-        $hashString = implode("", $hashStringData);
+        $hashString = '';
+        array_walk_recursive($data, function ($val) use (&$hashString) {
+            $hashString .= mb_strlen($val) . $val;
+            return $hashString;
+        });
+
         $data["ORDER_HASH"] = hash_hmac("md5", (string)$hashString, $this->getSecret());
 
         return $data;
@@ -193,7 +194,6 @@ class AuthorizeRequest extends AbstractRequest
         return $this->getParameter('installmentNumber');
     }
 
-
     /**
      * @param int $value
      * @return AuthorizeRequest
@@ -201,25 +201,6 @@ class AuthorizeRequest extends AbstractRequest
     public function setInstallmentNumber(int $value)
     {
         return $this->setParameter('installmentNumber', $value);
-    }
-
-
-    /**
-     * @param $val
-     * @return string
-     */
-    private function getHashString($val)
-    {
-        $hashString = '';
-        if (is_array($val)) {
-            foreach ($val as $subVal) {
-                $hashString .= mb_strlen($subVal) . $subVal;
-            }
-        } else {
-            $hashString .= mb_strlen($val) . $val;
-        }
-
-        return $hashString;
     }
 }
 
