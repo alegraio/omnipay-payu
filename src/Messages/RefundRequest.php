@@ -5,9 +5,6 @@
 
 namespace Omnipay\PayU\Messages;
 
-use Omnipay\Common\Exception\InvalidResponseException;
-use Omnipay\Common\Message\ResponseInterface;
-
 class RefundRequest extends AbstractRequest
 {
     use ConstantTrait;

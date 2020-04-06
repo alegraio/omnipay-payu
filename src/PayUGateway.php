@@ -1,6 +1,6 @@
 <?php
 /**
- * Payu Class using API
+ * PayU Class using API
  */
 
 namespace Omnipay\PayU;
@@ -77,7 +77,6 @@ class PayUGateway extends AbstractGateway
         return $this->createRequest('\Omnipay\PayU\Messages\CompleteAuthorizeRequest', $parameters);
     }
 
-
     /**
      * @param array $parameters
      * @return AbstractRequest|RequestInterface
@@ -88,6 +87,33 @@ class PayUGateway extends AbstractGateway
     }
 
     /**
+     * @param array $parameters
+     * @return AbstractRequest|RequestInterface
+     */
+    public function cardInfoV1(array $parameters = [])
+    {
+        return $this->createRequest('\Omnipay\PayU\Messages\CardInfoV1Request', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     * @return AbstractRequest|RequestInterface
+     */
+    public function orderTransaction(array $parameters = [])
+    {
+        return $this->createRequest('\Omnipay\PayU\Messages\OrderTransactionRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     * @return AbstractRequest|RequestInterface
+     */
+    public function cardInfoV2(array $parameters = [])
+    {
+        return $this->createRequest('\Omnipay\PayU\Messages\CardInfoV2Request', $parameters);
+    }
+
+    /**
      * @param string $value
      * @return PayUGateway
      */
@@ -95,5 +121,4 @@ class PayUGateway extends AbstractGateway
     {
         return $this->setParameter('secret', $value);
     }
-
 }

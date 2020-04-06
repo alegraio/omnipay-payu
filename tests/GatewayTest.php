@@ -4,7 +4,10 @@ namespace Omnipay\Tests;
 
 use Omnipay\Common\CreditCard;
 use Omnipay\PayU\Messages\AuthorizeResponse;
+use Omnipay\PayU\Messages\CardInfoV1Response;
+use Omnipay\PayU\Messages\CardInfoV2Response;
 use Omnipay\PayU\Messages\CompleteAuthorizeResponse;
+use Omnipay\PayU\Messages\OrderTransactionResponse;
 use Omnipay\PayU\Messages\RefundResponse;
 use Omnipay\PayU\PayUGateway;
 use Omnipay\PayU\PayUItemBag;
@@ -62,7 +65,7 @@ class GatewayTest extends GatewayTestCase
 
         $this->options = [
             'card' => $card,
-            'orderRef' => '4442343532',
+            'orderRef' => '8443343542',
             'paymentMethod' => 'credit_card',
             'installmentNumber' => "1",
             'ccOwner' => '000',
@@ -79,12 +82,12 @@ class GatewayTest extends GatewayTestCase
     {
 
         $this->options = [
-            'orderRef' => '152703214',
+            'orderRef' => '152112296',
             'amount' => '250'
         ];
 
         /** @var CompleteAuthorizeResponse $response */
-        $response = $this->gateway->completePurchase($this->options)->send();
+        $response = $this->gateway->completeAuthorize($this->options)->send();
         $this->assertTrue($response->isSuccessful());
     }
 
@@ -98,6 +101,44 @@ class GatewayTest extends GatewayTestCase
 
         /** @var RefundResponse $response */
         $response = $this->gateway->refund($this->options)->send();
+        $this->assertTrue($response->isSuccessful());
+    }
+
+    public function testCardInfoV1()
+    {
+        $this->options = [
+            'bin' => '557829'
+        ];
+
+        /** @var CardInfoV1Response $response */
+        $response = $this->gateway->cardInfoV1($this->options)->send();
+        $this->assertTrue($response->isSuccessful());
+    }
+
+    public function testOrderTransaction()
+    {
+        $this->options = [
+            'refNoExt' => '7304'
+        ];
+
+        /** @var OrderTransactionResponse $response */
+        $response = $this->gateway->orderTransaction($this->options)->send();
+        $this->assertTrue($response->isSuccessful());
+    }
+
+
+    public function testCardInfoV2()
+    {
+        $this->options = [
+            'cvv' => '000',
+            'owner' => 'Mesut GÜMÜŞTAŞ',
+            "expYear" => "2020",
+            "expMonth" => "12",
+            "number" => "4355084355084358"
+        ];
+
+        /** @var CardInfoV2Response $response */
+        $response = $this->gateway->cardInfoV2($this->options)->send();
         $this->assertTrue($response->isSuccessful());
     }
 }

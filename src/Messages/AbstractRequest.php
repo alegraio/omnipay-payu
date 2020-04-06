@@ -84,15 +84,21 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     public function sendData($data)
     {
         try {
-            $httpRequest = $this->httpClient->request('POST', $this->getEndpoint(),
+            if ($this->getHttpMethod() == 'GET') {
+                $requestUrl = $this->getEndpoint() . '?' . http_build_query($data);
+                $body = null;
+            } else {
+                $body = http_build_query($data, '', '&');
+                $requestUrl = $this->getEndpoint();
+            }
+
+            $httpRequest = $this->httpClient->request($this->getHttpMethod(), $requestUrl,
                 ['Content-Type' => 'application/x-www-form-urlencoded'],
-                http_build_query($data, '', '&'));
+                $body);
 
-            $body = $httpRequest->getBody()->getContents();
-            $parsedXML = @simplexml_load_string($body);
-            $content = json_decode(json_encode((array)$parsedXML), true);
+            $response = (string)$httpRequest->getBody()->getContents();
 
-            return $this->response = $this->createResponse($content, $httpRequest->getStatusCode());
+            return $this->response = $this->createResponse($response, $httpRequest->getStatusCode());
         } catch (\Exception $e) {
             throw new InvalidResponseException(
                 'Error communicating with payment gateway: ' . $e->getMessage(),
