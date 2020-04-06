@@ -104,6 +104,14 @@ class PayUGateway extends AbstractGateway
         return $this->createRequest('\Omnipay\PayU\Messages\OrderTransactionRequest', $parameters);
     }
 
+    /**
+     * @param array $parameters
+     * @return AbstractRequest|RequestInterface
+     */
+    public function cardInfoV2(array $parameters = [])
+    {
+        return $this->createRequest('\Omnipay\PayU\Messages\CardInfoV2Request', $parameters);
+    }
 
     /**
      * @param string $value

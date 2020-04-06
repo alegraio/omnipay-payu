@@ -5,6 +5,7 @@ namespace Omnipay\Tests;
 use Omnipay\Common\CreditCard;
 use Omnipay\PayU\Messages\AuthorizeResponse;
 use Omnipay\PayU\Messages\CardInfoV1Response;
+use Omnipay\PayU\Messages\CardInfoV2Response;
 use Omnipay\PayU\Messages\CompleteAuthorizeResponse;
 use Omnipay\PayU\Messages\OrderTransactionResponse;
 use Omnipay\PayU\Messages\RefundResponse;
@@ -122,6 +123,22 @@ class GatewayTest extends GatewayTestCase
 
         /** @var OrderTransactionResponse $response */
         $response = $this->gateway->orderTransaction($this->options)->send();
+        $this->assertTrue($response->isSuccessful());
+    }
+
+
+    public function testCardInfoV2()
+    {
+        $this->options = [
+            'cvv' => '000',
+            'owner' => 'Mesut GÜMÜŞTAŞ',
+            "expYear" => "2020",
+            "expMonth" => "12",
+            "number" => "4355084355084358"
+        ];
+
+        /** @var CardInfoV2Response $response */
+        $response = $this->gateway->cardInfoV2($this->options)->send();
         $this->assertTrue($response->isSuccessful());
     }
 }
