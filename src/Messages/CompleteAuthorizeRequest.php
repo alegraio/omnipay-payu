@@ -5,7 +5,6 @@
 
 namespace Omnipay\PayU\Messages;
 
-
 class CompleteAuthorizeRequest extends AbstractRequest
 {
     use ConstantTrait;

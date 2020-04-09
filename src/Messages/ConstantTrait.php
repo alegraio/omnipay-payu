@@ -7,7 +7,6 @@ trait ConstantTrait
 
     static $DEFAULT_CURRENCY = 'TRY';
 
-
     /**
      * @param string $method
      * @return string

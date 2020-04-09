@@ -5,7 +5,6 @@
 
 namespace Omnipay\PayU\Messages;
 
-
 use Omnipay\Common\ItemBag;
 use Omnipay\PayU\PayUItem;
 use Omnipay\PayU\PayUItemBag;
@@ -80,7 +79,7 @@ class AuthorizeRequest extends AbstractRequest
             $data['ORDER_QTY'][] = $item->getQuantity();
             $data['ORDER_VAT'][] = $item->getVat();
             $data['ORDER_PRICE_TYPE'][] = $this->getPriceTypes($item->getPriceType());
-        };
+        }
 
         ksort($data);
 
