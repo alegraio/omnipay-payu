@@ -18,6 +18,8 @@ use Omnipay\Common\Message\RequestInterface;
  * @method \Omnipay\Common\Message\RequestInterface createCard(array $options = array())
  * @method \Omnipay\Common\Message\RequestInterface updateCard(array $options = array())
  * @method \Omnipay\Common\Message\RequestInterface deleteCard(array $options = array())
+ * @method \Omnipay\Common\Message\NotificationInterface acceptNotification(array $options = array())
+ * @method \Omnipay\Common\Message\RequestInterface fetchTransaction(array $options = [])
  */
 class PayUGateway extends AbstractGateway
 {
@@ -120,5 +122,11 @@ class PayUGateway extends AbstractGateway
     public function setSecret(string $value)
     {
         return $this->setParameter('secret', $value);
+    }
+
+    public function __call($name, $arguments)
+    {
+        // TODO: Implement @method \Omnipay\Common\Message\NotificationInterface acceptNotification(array $options = array())
+        // TODO: Implement @method \Omnipay\Common\Message\RequestInterface fetchTransaction(array $options = [])
     }
 }
