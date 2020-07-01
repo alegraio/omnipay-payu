@@ -1,5 +1,5 @@
 {
-  "name": "omnipay/payu",
+  "name": "alegra/omnipay-payu",
   "type": "library",
   "description": "Payu gateway for Omnipay payment processing library",
   "homepage": "https://git.alegradigital.com/microservices/payment-payu",
