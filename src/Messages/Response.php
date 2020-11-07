@@ -27,7 +27,6 @@ class Response extends AbstractResponse implements RedirectResponseInterface
      */
     public function isSuccessful()
     {
-
         return !('SUCCESS' !== $this->data['STATUS']);
     }
 
