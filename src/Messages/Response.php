@@ -59,7 +59,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
      */
     public function isRedirect()
     {
-        return !empty($this->data['RETURN_CODE']) && $this->data['RETURN_CODE'] === '3DS_ENROLLED';
+        return !empty($this->data['RETURN_CODE']) && $this->isSuccessful() && $this->data['RETURN_CODE'] === '3DS_ENROLLED';
     }
 
     /**
