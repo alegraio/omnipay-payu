@@ -32,7 +32,7 @@ class CompleteAuthorizeRequest extends AbstractRequest
             $data['ORDER_HASH'] = $hash;
 
         } catch (\Exception $exception) {
-            throw new \Exception($exception->getMessage());
+            throw new \RuntimeException($exception->getMessage());
         }
 
         return $data;
@@ -43,7 +43,7 @@ class CompleteAuthorizeRequest extends AbstractRequest
      */
     protected function getEndpoint(): string
     {
-        return parent::getApiUrl() . '/order/idn.php';
+        return $this->getApiUrl() . '/order/idn.php';
     }
 
     /**

@@ -26,12 +26,7 @@ class CardInfoV1Response extends AbstractResponse implements RedirectResponseInt
      */
     public function isSuccessful()
     {
-
-        if ($this->getMessage() == 'success') {
-            return true;
-        }
-
-        return false;
+        return $this->getMessage() === 'success';
     }
 
     public function getCode()

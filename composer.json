@@ -12,7 +12,8 @@
   "require": {
     "omnipay/common": "^3",
     "ext-json": "*",
-    "ext-simplexml": "*"
+    "ext-simplexml": "*",
+    "ext-mbstring": "*"
   },
   "require-dev": {
     "omnipay/tests": "^3",

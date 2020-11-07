@@ -28,11 +28,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
     public function isSuccessful()
     {
 
-        if ('SUCCESS' !== $this->data['STATUS']) {
-            return false;
-        }
-
-        return true;
+        return !('SUCCESS' !== $this->data['STATUS']);
     }
 
     public function getCode()
@@ -63,11 +59,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
      */
     public function isRedirect()
     {
-        if (!empty($this->data['RETURN_CODE']) && $this->data['RETURN_CODE'] === '3DS_ENROLLED') {
-            return true;
-        }
-
-        return false;
+        return !empty($this->data['RETURN_CODE']) && $this->data['RETURN_CODE'] === '3DS_ENROLLED';
     }
 
     /**

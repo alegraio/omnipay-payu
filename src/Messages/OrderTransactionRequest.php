@@ -29,7 +29,7 @@ class OrderTransactionRequest extends AbstractRequest
             $hash = hash_hmac('md5', $hashString, $this->getSecret());
             $data['HASH'] = $hash;
         } catch (\Exception $exception) {
-            throw new \Exception($exception->getMessage());
+            throw new \RuntimeException($exception->getMessage());
         }
 
         return $data;
@@ -40,7 +40,7 @@ class OrderTransactionRequest extends AbstractRequest
      */
     protected function getEndpoint(): string
     {
-        return parent::getApiUrl() . '/order/ios.php';
+        return $this->getApiUrl() . '/order/ios.php';
     }
 
     /**
@@ -59,7 +59,6 @@ class OrderTransactionRequest extends AbstractRequest
     {
         return $this->setParameter('refNoExt', $value);
     }
-
 
     /**
      * @param $data

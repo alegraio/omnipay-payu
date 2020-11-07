@@ -13,11 +13,7 @@ class OrderTransactionResponse extends Response
      */
     public function isSuccessful(): bool
     {
-        if ($this->getCode() === 200) {
-            return true;
-        }
-
-        return false;
+        return $this->getCode() === 200;
     }
 
     public function getTransactionReference()

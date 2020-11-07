@@ -21,11 +21,12 @@ class AuthorizeRequest extends AbstractRequest
      */
     public function setItems($items)
     {
+        $itemBag = $items;
         if ($items && !$items instanceof ItemBag) {
-            $items = new PayUItemBag($items);
+            $itemBag = new PayUItemBag($items);
         }
 
-        return $this->setParameter('items', $items);
+        return $this->setParameter('items', $itemBag);
     }
 
     public function getData()
@@ -84,12 +85,12 @@ class AuthorizeRequest extends AbstractRequest
         ksort($data);
 
         $hashString = '';
-        array_walk_recursive($data, function ($val) use (&$hashString) {
+        array_walk_recursive($data, static function ($val) use (&$hashString) {
             $hashString .= mb_strlen($val) . $val;
             return $hashString;
         });
 
-        $data["ORDER_HASH"] = hash_hmac("md5", (string)$hashString, $this->getSecret());
+        $data["ORDER_HASH"] = hash_hmac("md5", $hashString, $this->getSecret());
 
         return $data;
     }
@@ -109,11 +110,13 @@ class AuthorizeRequest extends AbstractRequest
 
         if (empty($id)) {
             return $desc;
-        } elseif (empty($desc)) {
-            return $id;
-        } else {
-            return "$id : $desc";
         }
+
+        if (empty($desc)) {
+            return $id;
+        }
+
+        return "$id : $desc";
     }
 
     /**
@@ -121,7 +124,7 @@ class AuthorizeRequest extends AbstractRequest
      */
     protected function getEndpoint(): string
     {
-        return parent::getApiUrl() . '/order/alu/v3';
+        return $this->getApiUrl() . '/order/alu/v3';
     }
 
     /**
@@ -139,7 +142,7 @@ class AuthorizeRequest extends AbstractRequest
      */
     public function getLang(): string
     {
-        return $this->getParameter('lang') ? $this->getParameter('lang') : self::DEFAULT_LANG;
+        return $this->getParameter('lang') ?: self::DEFAULT_LANG;
     }
 
     /**

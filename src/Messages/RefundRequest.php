@@ -32,7 +32,7 @@ class RefundRequest extends AbstractRequest
             $hash = hash_hmac('md5', $hashString, $this->getSecret());
             $irn['ORDER_HASH'] = $hash;
         } catch (\Exception $exception) {
-            throw new \Exception($exception->getMessage());
+            throw new \RuntimeException($exception->getMessage());
         }
 
         return $irn;
@@ -43,7 +43,7 @@ class RefundRequest extends AbstractRequest
      */
     protected function getEndpoint(): string
     {
-        return parent::getApiUrl() . '/order/irn.php';
+        return $this->getApiUrl() . '/order/irn.php';
     }
 
     /**

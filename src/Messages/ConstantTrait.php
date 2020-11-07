@@ -5,7 +5,7 @@ namespace Omnipay\PayU\Messages;
 trait ConstantTrait
 {
 
-    static $DEFAULT_CURRENCY = 'TRY';
+    public static $DEFAULT_CURRENCY = 'TRY';
 
     /**
      * @param string $method
@@ -21,8 +21,7 @@ trait ConstantTrait
             'transfer_eft' => 'WIRE'
         ];
 
-        return isset($list[$method]) ? $list[$method] : null;
-
+        return $list[$method] ?? '';
     }
 
     /**
@@ -36,7 +35,6 @@ trait ConstantTrait
             'without_vat' => 'NET'
         ];
 
-        return isset($list[$type]) ? $list[$type] : null;
-
+        return $list[$type] ?? '';
     }
 }
