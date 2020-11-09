@@ -32,6 +32,10 @@ class Response extends AbstractResponse implements RedirectResponseInterface
 
     public function getCode()
     {
+        if (!empty($this->data['RETURN_CODE'])) {
+            return $this->data['RETURN_CODE'];
+        }
+
         return $this->statusCode;
     }
 
@@ -47,7 +51,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
     public function getMessage()
     {
         if (!empty($this->data['RETURN_MESSAGE'])) {
-            return $this->data['RETURN_CODE'] . " : " . $this->data['RETURN_MESSAGE'];
+            return $this->data['RETURN_MESSAGE'];
         }
 
         return null;
