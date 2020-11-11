@@ -5,11 +5,9 @@
 
 namespace Omnipay\PayU\Messages;
 
-use Omnipay\Common\Message\AbstractResponse;
-use Omnipay\Common\Message\RedirectResponseInterface;
 use Omnipay\Common\Message\RequestInterface;
 
-class CardInfoV2Response extends AbstractResponse implements RedirectResponseInterface
+class CardInfoV2Response extends AbstractResponse
 {
     protected $statusCode;
 

@@ -87,6 +87,9 @@ class CompleteAuthorizeRequest extends AbstractRequest
      */
     protected function createResponse($data, $statusCode): CompleteAuthorizeResponse
     {
-        return new CompleteAuthorizeResponse($this, $data, $statusCode);
+        $response = new CompleteAuthorizeResponse($this, $data, $statusCode);
+        $response->setServiceRequestParams($data);
+
+        return $response;
     }
 }

@@ -104,6 +104,9 @@ class RefundRequest extends AbstractRequest
      */
     protected function createResponse($data, $statusCode): RefundResponse
     {
-        return new RefundResponse($this, $data, $statusCode);
+        $response = new RefundResponse($this, $data, $statusCode);
+        $response->setServiceRequestParams($data);
+
+        return $response;
     }
 }

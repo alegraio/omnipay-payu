@@ -67,6 +67,9 @@ class OrderTransactionRequest extends AbstractRequest
      */
     protected function createResponse($data, $statusCode): OrderTransactionResponse
     {
-        return new OrderTransactionResponse($this, $data, $statusCode);
+        $response = new OrderTransactionResponse($this, $data, $statusCode);
+        $response->setServiceRequestParams($data);
+
+        return $response;
     }
 }
