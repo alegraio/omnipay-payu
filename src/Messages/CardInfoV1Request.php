@@ -86,7 +86,8 @@ class CardInfoV1Request extends AbstractRequest
     protected function createResponse($data, $statusCode): CardInfoV1Response
     {
         $response = new CardInfoV1Response($this, $data, $statusCode);
-        $response->setServiceRequestParams($data);
+        $requestParams = $this->getRequestParams();
+        $response->setServiceRequestParams($requestParams);
 
         return $response;
     }

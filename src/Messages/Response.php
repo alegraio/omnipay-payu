@@ -79,8 +79,8 @@ class Response extends AbstractResponse
      * @param array $data
      * @return array
      */
-    public function setData(array $data): array
+    public function setData(array $data): void
     {
-        return $this->data = $data;
+        $this->data = $data;
     }
 }

@@ -106,4 +106,16 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
             );
         }
     }
+
+    /**
+     * @return array
+     */
+    protected function getRequestParams(): array
+    {
+        return [
+            'url' => $this->getEndPoint(),
+            'data' => $this->getData(),
+            'method' => $this->getHttpMethod()
+        ];
+    }
 }
