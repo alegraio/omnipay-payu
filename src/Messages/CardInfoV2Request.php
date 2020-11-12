@@ -164,6 +164,10 @@ class CardInfoV2Request extends AbstractRequest
      */
     protected function createResponse($data, $statusCode): CardInfoV2Response
     {
-        return new CardInfoV2Response($this, $data, $statusCode);
+        $response = new CardInfoV2Response($this, $data, $statusCode);
+        $requestParams = $this->getRequestParams();
+        $response->setServiceRequestParams($requestParams);
+
+        return $response;
     }
 }

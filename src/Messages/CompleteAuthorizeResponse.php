@@ -5,11 +5,9 @@
 
 namespace Omnipay\PayU\Messages;
 
-use Omnipay\Common\Message\AbstractResponse;
-use Omnipay\Common\Message\RedirectResponseInterface;
 use Omnipay\Common\Message\RequestInterface;
 
-class CompleteAuthorizeResponse extends AbstractResponse implements RedirectResponseInterface
+class CompleteAuthorizeResponse extends AbstractResponse
 {
     public const SUCCESS_CODES = [1, 7];
     protected $statusCode;

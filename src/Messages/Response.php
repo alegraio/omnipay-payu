@@ -5,11 +5,9 @@
 
 namespace Omnipay\PayU\Messages;
 
-use Omnipay\Common\Message\AbstractResponse;
-use Omnipay\Common\Message\RedirectResponseInterface;
 use Omnipay\Common\Message\RequestInterface;
 
-class Response extends AbstractResponse implements RedirectResponseInterface
+class Response extends AbstractResponse
 {
     protected $statusCode;
 
@@ -81,9 +79,8 @@ class Response extends AbstractResponse implements RedirectResponseInterface
      * @param array $data
      * @return array
      */
-    public function setData(array $data): array
+    public function setData(array $data): void
     {
-        return $this->data = $data;
+        $this->data = $data;
     }
-
 }
