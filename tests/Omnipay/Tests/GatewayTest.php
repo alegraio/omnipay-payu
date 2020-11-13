@@ -31,6 +31,8 @@ class GatewayTest extends GatewayTestCase
 
     public function testPurchase()
     {
+        $orderRef = uniqid('alegra', false);
+
         $products = [
             [
                 'name' => 'TestYILYIL',
@@ -65,7 +67,7 @@ class GatewayTest extends GatewayTestCase
 
         $this->options = [
             'card' => $card,
-            'orderRef' => '8443343542',
+            'orderRef' => $orderRef,
             'paymentMethod' => 'credit_card',
             'installmentNumber' => "1",
             'ccOwner' => '000',
@@ -75,36 +77,42 @@ class GatewayTest extends GatewayTestCase
 
         /** @var AuthorizeResponse $response */
         $response = $this->gateway->purchase($this->options)->send();
-        $this->assertTrue($response->isSuccessful());
+        $data = $response->getData();
+        self::assertTrue($response->isSuccessful());
+        return $data['REFNO'];
     }
+
 
     public function testCompleteAuthorize()
     {
-
         $this->options = [
-            'orderRef' => '152112296',
-            'amount' => '250'
+            'orderRef' => '41838239',
+            'amount' => '10.90'
         ];
 
         /** @var CompleteAuthorizeResponse $response */
         $response = $this->gateway->completeAuthorize($this->options)->send();
-        $this->assertTrue($response->isSuccessful());
+        self::assertTrue($response->isSuccessful());
     }
 
-    public function testRefund()
+    /**
+     * @depends testPurchase
+     * @param $refNo
+     */
+    public function testRefund($refNo): void
     {
         $this->options = [
-            'orderRef' => '152584931',
+            'orderRef' => $refNo,
             'orderAmount' => '250',
             'amount' => '50'
         ];
 
         /** @var RefundResponse $response */
         $response = $this->gateway->refund($this->options)->send();
-        $this->assertTrue($response->isSuccessful());
+        self::assertTrue($response->isSuccessful());
     }
 
-    public function testCardInfoV1()
+    public function testCardInfoV1(): void
     {
         $this->options = [
             'bin' => '557829'
@@ -112,10 +120,10 @@ class GatewayTest extends GatewayTestCase
 
         /** @var CardInfoV1Response $response */
         $response = $this->gateway->cardInfoV1($this->options)->send();
-        $this->assertTrue($response->isSuccessful());
+        self::assertTrue($response->isSuccessful());
     }
 
-    public function testOrderTransaction()
+    public function testOrderTransaction(): void
     {
         $this->options = [
             'refNoExt' => '7304'
@@ -123,11 +131,10 @@ class GatewayTest extends GatewayTestCase
 
         /** @var OrderTransactionResponse $response */
         $response = $this->gateway->orderTransaction($this->options)->send();
-        $this->assertTrue($response->isSuccessful());
+        self::assertTrue($response->isSuccessful());
     }
 
-
-    public function testCardInfoV2()
+    public function testCardInfoV2(): void
     {
         $this->options = [
             'cvv' => '000',
@@ -139,6 +146,6 @@ class GatewayTest extends GatewayTestCase
 
         /** @var CardInfoV2Response $response */
         $response = $this->gateway->cardInfoV2($this->options)->send();
-        $this->assertTrue($response->isSuccessful());
+        self::assertTrue($response->isSuccessful());
     }
 }

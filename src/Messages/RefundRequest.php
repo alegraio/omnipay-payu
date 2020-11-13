@@ -16,7 +16,7 @@ class RefundRequest extends AbstractRequest
     public function getData()
     {
         try {
-            $irn = [
+            $data = [
                 "MERCHANT" => $this->getClientId(),
                 "ORDER_REF" => $this->getOrderRef(),
                 "ORDER_AMOUNT" => $this->formatCurrency($this->getOrderAmount()),
@@ -26,16 +26,17 @@ class RefundRequest extends AbstractRequest
             ];
 
             $hashString = "";
-            foreach ($irn as $key => $value) {
+            foreach ($data as $key => $value) {
                 $hashString .= strlen($value) . $value;
             }
             $hash = hash_hmac('md5', $hashString, $this->getSecret());
-            $irn['ORDER_HASH'] = $hash;
+            $data['ORDER_HASH'] = $hash;
+            $this->setRequestParams($data);
         } catch (\Exception $exception) {
             throw new \RuntimeException($exception->getMessage());
         }
 
-        return $irn;
+        return $data;
     }
 
     /**
@@ -109,5 +110,10 @@ class RefundRequest extends AbstractRequest
         $response->setServiceRequestParams($requestParams);
 
         return $response;
+    }
+
+    public function getSensitiveData(): array
+    {
+        return [];
     }
 }

@@ -28,6 +28,7 @@ class OrderTransactionRequest extends AbstractRequest
 
             $hash = hash_hmac('md5', $hashString, $this->getSecret());
             $data['HASH'] = $hash;
+            $this->setRequestParams($data);
         } catch (\Exception $exception) {
             throw new \RuntimeException($exception->getMessage());
         }
@@ -72,5 +73,10 @@ class OrderTransactionRequest extends AbstractRequest
         $response->setServiceRequestParams($requestParams);
 
         return $response;
+    }
+
+    public function getSensitiveData(): array
+    {
+        return [];
     }
 }

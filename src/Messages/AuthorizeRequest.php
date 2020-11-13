@@ -92,6 +92,8 @@ class AuthorizeRequest extends AbstractRequest
 
         $data["ORDER_HASH"] = hash_hmac("md5", $hashString, $this->getSecret());
 
+        $this->setRequestParams($data);
+
         return $data;
     }
 
@@ -207,6 +209,11 @@ class AuthorizeRequest extends AbstractRequest
     public function setInstallmentNumber(int $value)
     {
         return $this->setParameter('installmentNumber', $value);
+    }
+
+    public function getSensitiveData(): array
+    {
+        return ['CC_NUMBER', 'CC_OWNER', 'CC_CVV', 'EXP_MONTH', 'EXP_YEAR'];
     }
 }
 

@@ -31,6 +31,8 @@ class CompleteAuthorizeRequest extends AbstractRequest
             $hash = hash_hmac('md5', $hashString, $this->getSecret());
             $data['ORDER_HASH'] = $hash;
 
+            $this->setRequestParams($data);
+
         } catch (\Exception $exception) {
             throw new \RuntimeException($exception->getMessage());
         }
@@ -92,5 +94,10 @@ class CompleteAuthorizeRequest extends AbstractRequest
         $response->setServiceRequestParams($requestParams);
 
         return $response;
+    }
+
+    public function getSensitiveData(): array
+    {
+        return [];
     }
 }

@@ -7,15 +7,17 @@ namespace Omnipay\PayU\Messages;
 
 use Omnipay\Common\Exception\InvalidResponseException;
 use Omnipay\Common\Message\ResponseInterface;
+use Omnipay\PayU\Mask;
+use Omnipay\PayU\PayURequestInterface;
 
-
-abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
+abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest implements PayURequestInterface
 {
-    const DEFAULT_LANG = 'TR';
+    public const DEFAULT_LANG = 'TR';
 
     /** @var string */
     protected $apiUrl = 'https://secure.payu.com.tr';
 
+    protected $requestParams;
 
     /**
      * @return string
@@ -84,7 +86,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     public function sendData($data)
     {
         try {
-            if ($this->getHttpMethod() == 'GET') {
+            if ($this->getHttpMethod() === 'GET') {
                 $requestUrl = $this->getEndpoint() . '?' . http_build_query($data);
                 $body = null;
             } else {
@@ -107,6 +109,20 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         }
     }
 
+    protected function setRequestParams(array $data): void
+    {
+        array_walk_recursive($data, [$this, 'updateValue']);
+        $this->requestParams = $data;
+    }
+
+    protected function updateValue(&$data, $key): void
+    {
+        $sensitiveData = $this->getSensitiveData();
+        if (\in_array($key, $sensitiveData, true)) {
+            $data = Mask::mask($data);
+        }
+    }
+
     /**
      * @return array
      */
@@ -114,7 +130,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     {
         return [
             'url' => $this->getEndPoint(),
-            'data' => $this->getData(),
+            'data' => $this->requestParams,
             'method' => $this->getHttpMethod()
         ];
     }

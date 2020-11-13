@@ -35,8 +35,9 @@ class CardInfoV2Request extends AbstractRequest
 
             $hash = hash_hmac('sha256', $hashString, $this->getSecret());
             $data['signature'] = $hash;
+            $this->setRequestParams($data);
         } catch (\Exception $exception) {
-            throw new \Exception($exception->getMessage());
+            throw new \RuntimeException($exception->getMessage());
         }
 
         return $data;
@@ -52,7 +53,7 @@ class CardInfoV2Request extends AbstractRequest
      */
     protected function getEndpoint(): string
     {
-        return parent::getApiUrl() . '/api/card-info/v2/';
+        return $this->getApiUrl() . '/api/card-info/v2/';
     }
 
     /**
@@ -169,5 +170,10 @@ class CardInfoV2Request extends AbstractRequest
         $response->setServiceRequestParams($requestParams);
 
         return $response;
+    }
+
+    public function getSensitiveData(): array
+    {
+        return ['cc_cvv', 'cc_owner', 'exp_year', 'exp_month', 'cc_number'];
     }
 }
