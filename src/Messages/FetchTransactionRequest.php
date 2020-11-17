@@ -39,7 +39,7 @@ class FetchTransactionRequest extends AbstractRequest
     /**
      * @return string
      */
-    protected function getEndpoint(): string
+    public function getEndpoint(): string
     {
         return $this->getApiUrl() . '/order/ios.php';
     }

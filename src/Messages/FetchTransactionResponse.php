@@ -13,7 +13,7 @@ class FetchTransactionResponse extends Response
      */
     public function isSuccessful(): bool
     {
-        return $this->getCode() === 200;
+        return true;
     }
 
     public function getTransactionReference()
@@ -21,7 +21,7 @@ class FetchTransactionResponse extends Response
         return $this->getData()['REFNO'] ?? null;
     }
 
-    public function getOderReferenceNoExt()
+    public function getOrderReferenceNoExt()
     {
         return $this->getData()['REFNOEXT'] ?? null;
     }
@@ -34,5 +34,10 @@ class FetchTransactionResponse extends Response
     public function getPaymentMethod()
     {
         return $this->getData()['PAYMETHOD'] ?? null;
+    }
+
+    public function getMessage()
+    {
+        return $this->getData()['ORDER_STATUS'] ?? null;
     }
 }

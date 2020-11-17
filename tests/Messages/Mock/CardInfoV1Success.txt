@@ -1,0 +1,41 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Fri, 11 Nov 2020 18:25:28 GMT
+Content-Type: application/json;charset=utf-8
+Content-Length: 2966
+Connection: keep-alive
+Cache-Control: no-cache, no-store
+Request-Id: req_8PDHeZazN2LwML
+Access-Control-Allow-Credentials: true
+Access-Control-Max-Age: 300
+
+{
+  "meta": {
+    "status": {
+      "code": 0,
+      "message": "success"
+    },
+    "response": {
+      "httpCode": 200,
+      "httpMessage": "200 OK"
+    }
+  },
+  "cardBinInfo": {
+    "binType": "MASTERCARD",
+    "binIssuer": "AKBANK",
+    "cardType": "CREDIT",
+    "cardProfile": "CONSUMER",
+    "country": "Turkey",
+    "program": "Axess",
+    "installments": [
+      1,
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "paymentMethod": "CCVISAMC"
+  }
+}

@@ -40,7 +40,7 @@ class CardInfoV1Request extends AbstractRequest
     /**
      * @return string
      */
-    protected function getEndpoint(): string
+    public function getEndpoint(): string
     {
         return $this->getApiUrl() . '/api/card-info/v1/' . $this->getBin();
     }

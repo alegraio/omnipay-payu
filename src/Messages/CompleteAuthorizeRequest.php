@@ -43,7 +43,7 @@ class CompleteAuthorizeRequest extends AbstractRequest
     /**
      * @return string
      */
-    protected function getEndpoint(): string
+    public function getEndpoint(): string
     {
         return $this->getApiUrl() . '/order/idn.php';
     }

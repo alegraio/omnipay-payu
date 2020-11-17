@@ -42,7 +42,7 @@ class RefundRequest extends AbstractRequest
     /**
      * @return string
      */
-    protected function getEndpoint(): string
+    public function getEndpoint(): string
     {
         return $this->getApiUrl() . '/order/irn.php';
     }

@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Fri, 11 Nov 2020 18:25:28 GMT
+Content-Type: application/json;charset=utf-8
+Content-Length: 2966
+Connection: keep-alive
+Cache-Control: no-cache, no-store
+Request-Id: req_8PDHeZazN2LwML
+Access-Control-Allow-Credentials: true
+Access-Control-Max-Age: 300
+
+<EPAYMENT>alegra5fb3d705f0cf0|2|Invalid ORDER_REF|2020-11-17 19:28:06|e6ce33b0c6dd6825f2bbf18cf073b516</EPAYMENT>

@@ -10,6 +10,97 @@ class PayUTestCase extends TestCase
 {
     protected function getPurchaseParams(): array
     {
+        $params = $this->getDefaultPurchaseParams();
+
+        return $this->provideMergedParams($params);
+    }
+
+    protected function getPurchase3dParams(): array
+    {
+        $params = $this->getDefaultPurchaseParams();
+
+        return array_merge($params, $this->getPurchase3dDefaultOptions());
+    }
+
+    protected function getRefundParams(): array
+    {
+        $params = [
+            'orderRef' => 'alegra5fb3d705f0cf0',
+            'orderAmount' => '250',
+            'amount' => '50'
+        ];
+
+        return $this->provideMergedParams($params);
+    }
+
+    protected function getCompleteAuthorizeParams(): array
+    {
+        $params = [
+            'orderRef' => '41838239',
+            'amount' => '10.90'
+        ];
+
+        return $this->provideMergedParams($params);
+    }
+
+    protected function getFetchTransactionParams(): array
+    {
+        $params = [
+            'refNoExt' => '1817127587777'
+        ];
+
+        return $this->provideMergedParams($params);
+    }
+
+    protected function getCardInfoV1Params(): array
+    {
+        $params = [
+            'bin' => '557829'
+        ];
+
+        return $this->provideMergedParams($params);
+    }
+
+    protected function getCardInfoV2Params(): array
+    {
+        $params = [
+            'cvv' => '000',
+            'owner' => 'Mesut GÜMÜŞTAŞ',
+            "expYear" => "2020",
+            "expMonth" => "12",
+            "number" => "4355084355084358"
+        ];
+
+        return $this->provideMergedParams($params);
+    }
+
+
+    private function getDefaultOptions(): array
+    {
+        return [
+            'testMode' => true,
+            'secret' => 'SECRET_KEY',
+            'clientId' => 'OPU_TEST'
+        ];
+    }
+
+    private function getPurchase3dDefaultOptions(): array
+    {
+        return [
+            'testMode' => true,
+            'secret' => 'f*%J7z6_#|5]s7V4[g3]',
+            'clientId' => 'PALJZXGV'
+        ];
+    }
+
+    private function provideMergedParams($params): array
+    {
+        $params = array_merge($params, $this->getDefaultOptions());
+        return $params;
+    }
+
+    protected function getDefaultPurchaseParams(): array
+    {
         $products = [
             [
                 'name' => 'TestYILYIL',
@@ -51,51 +142,6 @@ class PayUTestCase extends TestCase
             'items' => $allItem
         ];
 
-        return $this->provideMergedParams($params);
-    }
-
-    protected function getRefundParams(): array
-    {
-        $params = [
-            'paymentTransactionId' => '12823076',
-            'clientIp' => '11.11.11.111',
-            'amount' => '10'
-        ];
-
-        return $this->provideMergedParams($params);
-    }
-
-    protected function getCancelPurchaseParams(): array
-    {
-        $params = [
-            'paymentId' => '13292709',
-            'clientIp' => '11.11.11.111'
-        ];
-
-        return $this->provideMergedParams($params);
-    }
-
-    protected function getCompletePurchaseParams(): array
-    {
-        $params = [
-            'paymentId' => '13292709',
-        ];
-
-        return $this->provideMergedParams($params);
-    }
-
-    private function getDefaultOptions(): array
-    {
-        return [
-            'testMode' => true,
-            'secret' => 'SECRET_KEY',
-            'clientId' => 'OPU_TEST',
-        ];
-    }
-
-    private function provideMergedParams($params): array
-    {
-        $params = array_merge($params, $this->getDefaultOptions());
         return $params;
     }
 }
