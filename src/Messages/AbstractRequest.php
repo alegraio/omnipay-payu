@@ -15,7 +15,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest i
     public const DEFAULT_LANG = 'TR';
 
     /** @var string */
-    protected $apiUrl = 'https://secure.payu.com.tr';
+    public $apiUrl = 'https://secure.payu.com.tr';
 
     protected $requestParams;
 
@@ -73,7 +73,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest i
     /**
      * @return string
      */
-    protected function getApiUrl(): string
+    public function getApiUrl(): string
     {
         return $this->apiUrl;
     }

@@ -9,6 +9,11 @@
       "Omnipay\\PayU\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "OmnipayTest\\PayU\\": "tests/"
+    }
+  },
   "require": {
     "omnipay/common": "^3",
     "ext-json": "*",

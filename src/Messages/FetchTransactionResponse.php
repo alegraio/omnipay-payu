@@ -5,7 +5,7 @@
 
 namespace Omnipay\PayU\Messages;
 
-class OrderTransactionResponse extends Response
+class FetchTransactionResponse extends Response
 {
 
     /**

@@ -1,11 +1,11 @@
 <?php
 /**
- * PayU Order Transaction Request
+ * PayU Fetch Transaction Request
  */
 
 namespace Omnipay\PayU\Messages;
 
-class OrderTransactionRequest extends AbstractRequest
+class FetchTransactionRequest extends AbstractRequest
 {
     use ConstantTrait;
 
@@ -54,7 +54,7 @@ class OrderTransactionRequest extends AbstractRequest
 
     /**
      * @param $value
-     * @return OrderTransactionRequest
+     * @return FetchTransactionRequest
      */
     public function setRefNoExt($value)
     {
@@ -64,11 +64,11 @@ class OrderTransactionRequest extends AbstractRequest
     /**
      * @param $data
      * @param $statusCode
-     * @return OrderTransactionResponse
+     * @return FetchTransactionResponse
      */
-    protected function createResponse($data, $statusCode): OrderTransactionResponse
+    protected function createResponse($data, $statusCode): FetchTransactionResponse
     {
-        $response = new OrderTransactionResponse($this, $data, $statusCode);
+        $response = new FetchTransactionResponse($this, $data, $statusCode);
         $requestParams = $this->getRequestParams();
         $response->setServiceRequestParams($requestParams);
 
