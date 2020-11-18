@@ -11,7 +11,7 @@ use Omnipay\Common\Message\RequestInterface;
 use Omnipay\PayU\Messages\CompleteAuthorizeRequest;
 use Omnipay\PayU\Messages\RefundRequest;
 use Omnipay\PayU\Messages\CardInfoV1Request;
-use Omnipay\PayU\Messages\OrderTransactionRequest;
+use Omnipay\PayU\Messages\FetchTransactionRequest;
 use Omnipay\PayU\Messages\CardInfoV2Request;
 use Omnipay\PayU\Messages\PurchaseRequest;
 
@@ -25,7 +25,6 @@ use Omnipay\PayU\Messages\PurchaseRequest;
  * @method \Omnipay\Common\Message\RequestInterface updateCard(array $options = array())
  * @method \Omnipay\Common\Message\RequestInterface deleteCard(array $options = array())
  * @method \Omnipay\Common\Message\NotificationInterface acceptNotification(array $options = array())
- * @method \Omnipay\Common\Message\RequestInterface fetchTransaction(array $options = [])
  */
 class PayUGateway extends AbstractGateway
 {
@@ -39,6 +38,19 @@ class PayUGateway extends AbstractGateway
     public function getName()
     {
         return 'PayU';
+    }
+
+    /**
+     * Default parameters.
+     *
+     * @return array
+     */
+    public function getDefaultParameters(): array
+    {
+        return [
+            'clientId' => '',
+            'secret' => '',
+        ];
     }
 
     /**
@@ -69,54 +81,54 @@ class PayUGateway extends AbstractGateway
 
     /**
      * @param array $parameters
-     * @return AbstractRequest|RequestInterface
+     * @return PurchaseRequest|RequestInterface
      */
-    public function purchase(array $parameters = [])
+    public function purchase(array $parameters = []): PurchaseRequest
     {
         return $this->createRequest(PurchaseRequest::class, $parameters);
     }
 
     /**
      * @param array $parameters
-     * @return AbstractRequest|RequestInterface
+     * @return CompleteAuthorizeRequest|RequestInterface
      */
-    public function completeAuthorize(array $parameters = [])
+    public function completeAuthorize(array $parameters = []): CompleteAuthorizeRequest
     {
         return $this->createRequest(CompleteAuthorizeRequest::class, $parameters);
     }
 
     /**
      * @param array $parameters
-     * @return AbstractRequest|RequestInterface
+     * @return RefundRequest|RequestInterface
      */
-    public function refund(array $parameters = [])
+    public function refund(array $parameters = []): RefundRequest
     {
         return $this->createRequest(RefundRequest::class, $parameters);
     }
 
     /**
      * @param array $parameters
-     * @return AbstractRequest|RequestInterface
+     * @return CardInfoV1Request|RequestInterface
      */
-    public function cardInfoV1(array $parameters = [])
+    public function cardInfoV1(array $parameters = []): CardInfoV1Request
     {
         return $this->createRequest(CardInfoV1Request::class, $parameters);
     }
 
     /**
      * @param array $parameters
-     * @return AbstractRequest|RequestInterface
+     * @return FetchTransactionRequest|RequestInterface
      */
-    public function orderTransaction(array $parameters = [])
+    public function fetchTransaction(array $parameters = []): FetchTransactionRequest
     {
-        return $this->createRequest(OrderTransactionRequest::class, $parameters);
+        return $this->createRequest(FetchTransactionRequest::class, $parameters);
     }
 
     /**
      * @param array $parameters
-     * @return AbstractRequest|RequestInterface
+     * @return CardInfoV2Request|RequestInterface
      */
-    public function cardInfoV2(array $parameters = [])
+    public function cardInfoV2(array $parameters = []): CardInfoV2Request
     {
         return $this->createRequest(CardInfoV2Request::class, $parameters);
     }

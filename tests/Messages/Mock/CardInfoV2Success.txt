@@ -1,0 +1,59 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Fri, 11 Nov 2020 18:25:28 GMT
+Content-Type: application/json;charset=utf-8
+Content-Length: 2966
+Connection: keep-alive
+Cache-Control: no-cache, no-store
+Request-Id: req_8PDHeZazN2LwML
+Access-Control-Allow-Credentials: true
+Access-Control-Max-Age: 300
+
+{
+  "meta": {
+    "code": 200,
+    "message": "success"
+  },
+  "cardInfo": {
+    "cardMask": "4355-xxxx-xxxx-4358",
+    "binNumber": "435508",
+    "cardBrand": "VISA",
+    "issuerBank": "AKBANK",
+    "issuerCountry": "Turkey",
+    "cardType": "CREDIT",
+    "cardProfile": "CONSUMER",
+    "cardProgram": "Axess",
+    "installmentOptions": [
+      {
+        "installmentNumber": 1,
+        "installmentAditionalCostPercent": 0
+      },
+      {
+        "installmentNumber": "2",
+        "installmentAditionalCostPercent": "0.00"
+      },
+      {
+        "installmentNumber": "3",
+        "installmentAditionalCostPercent": "0.00"
+      },
+      {
+        "installmentNumber": "4",
+        "installmentAditionalCostPercent": "0.00"
+      },
+      {
+        "installmentNumber": "5",
+        "installmentAditionalCostPercent": "0.00"
+      },
+      {
+        "installmentNumber": "6",
+        "installmentAditionalCostPercent": "0.00"
+      },
+      {
+        "installmentNumber": "7",
+        "installmentAditionalCostPercent": "0.00"
+      }
+    ],
+    "loyaltyPoints": [],
+    "fxInfo": []
+  }
+}

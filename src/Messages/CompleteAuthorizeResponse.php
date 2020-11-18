@@ -37,11 +37,12 @@ class CompleteAuthorizeResponse extends AbstractResponse
 
     public function getMessage()
     {
-        if (isset($this->data[1], $this->data[2])) {
-            return $this->data[1] . " : " . $this->data[2];
-        }
+        return isset($this->data[2]) ? $this->data[2] : null;
+    }
 
-        return null;
+    public function getCode()
+    {
+        return isset($this->data[1]) ? $this->data[1] : null;
     }
 
     /**

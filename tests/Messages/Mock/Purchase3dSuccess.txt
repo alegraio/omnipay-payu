@@ -1,0 +1,22 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Fri, 11 Nov 2020 18:25:28 GMT
+Content-Type: application/json;charset=utf-8
+Content-Length: 2966
+Connection: keep-alive
+Cache-Control: no-cache, no-store
+Request-Id: req_8PDHeZazN2LwML
+Access-Control-Allow-Credentials: true
+Access-Control-Max-Age: 300
+
+<?xml version="1.0"?>
+<EPAYMENT>
+  <REFNO>181723165</REFNO>
+  <ALIAS>a451099c64afaccc20411593d5d45154</ALIAS>
+  <STATUS>SUCCESS</STATUS>
+  <RETURN_CODE>3DS_ENROLLED</RETURN_CODE>
+  <RETURN_MESSAGE>3DS Enrolled Card.</RETURN_MESSAGE>
+  <DATE>2020-11-17 18:38:33</DATE>
+  <URL_3DS>https://secure.payu.com.tr/order/3ds/begin/refno/181723165/attempt/2Xrl85h0kaSO4HvrfbLGaHGR3XmvlKht/sign/78d65caddbd0c26dae40d5438bedf478/</URL_3DS>
+  <HASH>0dad6c93eeccf5fe9059798ebbfaa51b</HASH>
+</EPAYMENT>

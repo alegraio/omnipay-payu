@@ -29,7 +29,11 @@ class CardInfoV1Response extends AbstractResponse
 
     public function getCode()
     {
-        return $this->statusCode;
+        if (!empty($this->getData()['meta']) && !empty($this->getData()['meta']['status'])) {
+            return $this->getData()['meta']['status']['code'];
+        }
+
+        return null;
     }
 
     public function getMessage()
