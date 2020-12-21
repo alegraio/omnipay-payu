@@ -21,12 +21,12 @@ processing library for PHP 7.3+. This package implements PayU Online Payment Gat
 
 ## Autoload
 
-We have to install omnipay V.3
+You have to install omnipay V.3
 ```bash
 composer require league/omnipay:^3
 ```
 
-Then we have to install omnipay-payu package:
+Then you have to install omnipay-payu package:
 ```bash
 composer require alegra/omnipay-payu
 ```
@@ -35,15 +35,15 @@ composer require alegra/omnipay-payu
 
 ## Basic Usage
 
-- We have to  download /examples folder. 
-- We have to  composer install:
+- You have to  download /examples folder. 
+- You have to  composer install:
 ```bash
 composer install
 ```
 
 
 **Purchase Example**
-- we can check purchase.php file  in /examples folder. 
+- You can check purchase.php file  in /examples folder. 
 
 ```php
 <?php
@@ -73,7 +73,7 @@ print("<pre>" . print_r($result, true) . "</pre>");
 ```
 
 **Purchase 3d Example**
-- We can check purchase3d.php file  in /examples folder. 
+- You can check purchase3d.php file  in /examples folder. 
 
 ```php
 <?php
@@ -104,7 +104,7 @@ print("<pre>" . print_r($result, true) . "</pre>");
 ```
 
 **Confirmation Service Example**
-- We can check completeAuthorize.php file  in /examples folder. 
+- You can check completeAuthorize.php file  in /examples folder. 
 - The confirmation service is only for merchants working on the pre-motorization model, you can go with your sales representative for detailed information.
 
 ```php
@@ -134,7 +134,7 @@ print("<pre>" . print_r($result, true) . "</pre>");
 ```
 
 **Refund Example**
-- We can check refund.php file  in /examples folder. 
+- You can check refund.php file  in /examples folder. 
 
 ```php
 <?php
@@ -163,7 +163,7 @@ print("<pre>" . print_r($result, true) . "</pre>");
 ```
 
 **Fetch Transaction Example**
-- We can check fetchTransaction.php file  in /examples folder. 
+- You can check fetchTransaction.php file  in /examples folder. 
 
 ```php
 <?php
@@ -193,7 +193,7 @@ print("<pre>" . print_r($result, true) . "</pre>");
 ```
 
 **Card Information V1 Example**
-- We can check cardInfoV1.php file  in /examples folder. 
+- You can check cardInfoV1.php file  in /examples folder. 
 
 ```php
 <?php
@@ -221,7 +221,7 @@ print("<pre>" . print_r($result, true) . "</pre>");
 ```
 
 **Card Information V2 Example**
-- We can check cardInfoV2.php file  in /examples folder. 
+- You can check cardInfoV2.php file  in /examples folder. 
 
 ```php
 <?php
