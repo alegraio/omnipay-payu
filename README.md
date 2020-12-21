@@ -254,7 +254,7 @@ requestParams:
 >
 
 
-##Licensing
+## Licensing
 [BSD 3-Clause](LICENSE)
 
     For the full copyright and license information, please view the LICENSE
