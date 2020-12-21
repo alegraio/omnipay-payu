@@ -35,15 +35,15 @@ composer require alegra/omnipay-payu
 
 ## Basic Usage
 
-- You have to download /examples folder. 
-- You have to composer install:
+- We have to  download /examples folder. 
+- We have to  composer install:
 ```bash
 composer install
 ```
 
 
 **Purchase Example**
-- You can check purchase.php file  in /examples folder. 
+- we can check purchase.php file  in /examples folder. 
 
 ```php
 <?php
@@ -73,7 +73,7 @@ print("<pre>" . print_r($result, true) . "</pre>");
 ```
 
 **Purchase 3d Example**
-- You can check purchase3d.php file  in /examples folder. 
+- We can check purchase3d.php file  in /examples folder. 
 
 ```php
 <?php
@@ -104,7 +104,7 @@ print("<pre>" . print_r($result, true) . "</pre>");
 ```
 
 **Confirmation Service Example**
-- You can check completeAuthorize.php file  in /examples folder. 
+- We can check completeAuthorize.php file  in /examples folder. 
 - The confirmation service is only for merchants working on the pre-motorization model, you can go with your sales representative for detailed information.
 
 ```php
@@ -134,7 +134,7 @@ print("<pre>" . print_r($result, true) . "</pre>");
 ```
 
 **Refund Example**
-- You can check refund.php file  in /examples folder. 
+- We can check refund.php file  in /examples folder. 
 
 ```php
 <?php
@@ -163,7 +163,7 @@ print("<pre>" . print_r($result, true) . "</pre>");
 ```
 
 **Fetch Transaction Example**
-- You can check fetchTransaction.php file  in /examples folder. 
+- We can check fetchTransaction.php file  in /examples folder. 
 
 ```php
 <?php
@@ -193,7 +193,7 @@ print("<pre>" . print_r($result, true) . "</pre>");
 ```
 
 **Card Information V1 Example**
-- You can check cardInfoV1.php file  in /examples folder. 
+- We can check cardInfoV1.php file  in /examples folder. 
 
 ```php
 <?php
@@ -221,7 +221,7 @@ print("<pre>" . print_r($result, true) . "</pre>");
 ```
 
 **Card Information V2 Example**
-- You can check cardInfoV2.php file  in /examples folder. 
+- We can check cardInfoV2.php file  in /examples folder. 
 
 ```php
 <?php
