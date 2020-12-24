@@ -2,12 +2,17 @@
 
 namespace Examples;
 
+use Exception;
 use Omnipay\PayU\PayUItemBag;
 use Omnipay\Common\CreditCard;
 
 class Helper
 {
 
+    /**
+     * @return array
+     * @throws Exception
+     */
     public function getPurchaseParams(): array
     {
         $params = $this->getDefaultPurchaseParams();
@@ -15,6 +20,10 @@ class Helper
         return $this->provideMergedParams($params);
     }
 
+    /**
+     * @return array
+     * @throws Exception
+     */
     public function getPurchase3dParams(): array
     {
         $params = $this->getDefaultPurchaseParams();
@@ -99,6 +108,10 @@ class Helper
         return $params;
     }
 
+    /**
+     * @return array
+     * @throws Exception
+     */
     private function getDefaultPurchaseParams(): array
     {
         $products = [
@@ -124,7 +137,7 @@ class Helper
         $cardInfo['cvv'] = '000';
         $card = new CreditCard($cardInfo);
         $card->setEmail('mail@mail.com');
-        $params = [
+        return [
             'card' => $card,
             'orderRef' => '445576',
             'paymentMethod' => 'credit_card',
@@ -133,12 +146,11 @@ class Helper
             'returnUrl' => "www.backref.com.tr",
             'items' => $allItem
         ];
-
-        return $params;
     }
 
     /**
      * @return array
+     * @throws Exception
      */
     private function getValidCard(): array
     {
@@ -146,9 +158,9 @@ class Helper
             'firstName' => 'Example',
             'lastName' => 'User',
             'number' => '4111111111111111',
-            'expiryMonth' => rand(1, 12),
-            'expiryYear' => gmdate('Y') + rand(1, 5),
-            'cvv' => rand(100, 999),
+            'expiryMonth' => random_int(1, 12),
+            'expiryYear' => gmdate('Y') + random_int(1, 5),
+            'cvv' => random_int(100, 999),
             'billingAddress1' => '123 Billing St',
             'billingAddress2' => 'Billsville',
             'billingCity' => 'Billstown',

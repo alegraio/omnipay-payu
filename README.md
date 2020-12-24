@@ -1,4 +1,5 @@
 # omnipay-payu
+
 <p>
 <a href="https://github.com/alegraio/omnipay-payu/actions"><img src="https://github.com/alegraio/omnipay-payu/workflows/tests/badge.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/alegra/omnipay-payu"><img src="https://img.shields.io/packagist/dt/alegra/omnipay-payu" alt="Total Downloads"></a>
@@ -7,14 +8,13 @@
 </p>
 Payu gateway for Omnipay V3 payment processing library
 
-<a href="https://github.com/thephpleague/omnipay">Omnipay</a> is a framework agnostic, multi-gateway payment
-processing library for PHP 7.3+. This package implements PayU Online Payment Gateway support for Omnipay.
+<a href="https://github.com/thephpleague/omnipay">Omnipay</a> is a framework agnostic, multi-gateway payment processing
+library for PHP 7.3+. This package implements PayU Online Payment Gateway support for Omnipay.
 
 <p>PayU ALU V3 API <a href="https://payuturkiye.github.io/PayU-Turkiye-Entegrasyon-Dokumani/#alu-v3-api-entegrasyonu" rel="nofollow">documentation</a></p>
 
-
-
 ## Requirement
+
 * PHP >= 7.3.x,
 * [Omnipay V.3](https://github.com/thephpleague/omnipay) repository,
 * PHPUnit to run tests
@@ -22,11 +22,13 @@ processing library for PHP 7.3+. This package implements PayU Online Payment Gat
 ## Autoload
 
 You have to install omnipay V.3
+
 ```bash
 composer require league/omnipay:^3
 ```
 
 Then you have to install omnipay-payu package:
+
 ```bash
 composer require alegra/omnipay-payu
 ```
@@ -35,15 +37,16 @@ composer require alegra/omnipay-payu
 
 ## Basic Usage
 
-- You have to  download /examples folder. 
-- You have to  composer install:
+- You can use /examples folder to execute examples. This folder is exists here only to show you examples, it is not for production usage.
+- First in /examples folder:
+
 ```bash
 composer install
 ```
 
-
 **Purchase Example**
-- You can check purchase.php file  in /examples folder. 
+
+- You can check purchase.php file in /examples folder.
 
 ```php
 <?php
@@ -73,7 +76,8 @@ print("<pre>" . print_r($result, true) . "</pre>");
 ```
 
 **Purchase 3d Example**
-- You can check purchase3d.php file  in /examples folder. 
+
+- You can check purchase3d.php file in /examples folder.
 
 ```php
 <?php
@@ -104,8 +108,10 @@ print("<pre>" . print_r($result, true) . "</pre>");
 ```
 
 **Confirmation Service Example**
-- You can check completeAuthorize.php file  in /examples folder. 
-- The confirmation service is only for merchants working on the pre-motorization model, you can go with your sales representative for detailed information.
+
+- You can check completeAuthorize.php file in /examples folder.
+- The confirmation service is only for merchants working on the pre-motorization model, you can go with your sales
+  representative for detailed information.
 
 ```php
 <?php
@@ -134,7 +140,8 @@ print("<pre>" . print_r($result, true) . "</pre>");
 ```
 
 **Refund Example**
-- You can check refund.php file  in /examples folder. 
+
+- You can check refund.php file in /examples folder.
 
 ```php
 <?php
@@ -163,7 +170,8 @@ print("<pre>" . print_r($result, true) . "</pre>");
 ```
 
 **Fetch Transaction Example**
-- You can check fetchTransaction.php file  in /examples folder. 
+
+- You can check fetchTransaction.php file in /examples folder.
 
 ```php
 <?php
@@ -193,7 +201,8 @@ print("<pre>" . print_r($result, true) . "</pre>");
 ```
 
 **Card Information V1 Example**
-- You can check cardInfoV1.php file  in /examples folder. 
+
+- You can check cardInfoV1.php file in /examples folder.
 
 ```php
 <?php
@@ -221,7 +230,8 @@ print("<pre>" . print_r($result, true) . "</pre>");
 ```
 
 **Card Information V2 Example**
-- You can check cardInfoV2.php file  in /examples folder. 
+
+- You can check cardInfoV2.php file in /examples folder.
 
 ```php
 <?php
@@ -248,12 +258,13 @@ $result = [
 print("<pre>" . print_r($result, true) . "</pre>");
 ```
 
-requestParams: 
+requestParams:
 
-> System send request to payU api. It shows request information. 
+> System send request to payU api. It shows request information.
 >
 
 ## Licensing
+
 [GNU General Public Licence v3.0](LICENSE)
 
     For the full copyright and license information, please view the LICENSE

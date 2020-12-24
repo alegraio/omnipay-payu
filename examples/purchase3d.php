@@ -9,7 +9,11 @@ use Examples\Helper;
 $gateway = new PayUGateway();
 
 $helper = new Helper();
-$params = $helper->getPurchase3dParams();
+try {
+    $params = $helper->getPurchase3dParams();
+} catch (Exception $e) {
+    throw new \RuntimeException($e->getMessage());
+}
 $response = $gateway->purchase($params)->send();
 
 $result = [
