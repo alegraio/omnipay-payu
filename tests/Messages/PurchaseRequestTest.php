@@ -42,6 +42,30 @@ class PurchaseRequestTest extends PayUTestCase
         self::assertSame('181712758', $response->getTransactionReference());
     }
 
+    public function testSendWithDiscountSuccess(): void
+    {
+        $this->setMockHttpResponse('PurchaseWithDiscountSuccess.txt');
+
+        $params = $this->getPurchaseWithDiscountParams();
+        $this->request->initialize($params);
+
+        $requestData = $this->request->getData();
+
+        $amountCalculated = 0;
+        foreach ($requestData['ORDER_PRICE'] as $orderPriceKey => $orderPrice) {
+            $amountCalculated += (int)$orderPrice * (int)$requestData['ORDER_QTY'][$orderPriceKey];
+        }
+        $amountCalculated -= $requestData['DISCOUNT'];
+        $response = $this->request->send();
+        $amountApplied = (int)$response->getData()['AMOUNT'];
+
+        self::assertTrue($response->isSuccessful());
+        self::assertFalse($response->isRedirect());
+        self::assertSame('https://secure.payu.com.tr/order/alu/v3', $this->request->getEndpoint());
+        self::assertSame('187146704', $response->getTransactionReference());
+        self::assertSame($amountCalculated, $amountApplied);
+    }
+
     public function testSendError(): void
     {
         $this->setMockHttpResponse('PurchaseFailure.txt');
