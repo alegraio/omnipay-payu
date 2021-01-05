@@ -63,7 +63,7 @@ class PurchaseRequestTest extends PayUTestCase
         self::assertFalse($response->isRedirect());
         self::assertSame('https://secure.payu.com.tr/order/alu/v3', $this->request->getEndpoint());
         self::assertSame('187146704', $response->getTransactionReference());
-        self::assertSame($amountCalculated, $amountApplied);
+        self::assertSame((int)$amountCalculated, $amountApplied);
     }
 
     public function testSendError(): void

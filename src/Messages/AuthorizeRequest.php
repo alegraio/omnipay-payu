@@ -213,18 +213,18 @@ class AuthorizeRequest extends AbstractRequest
     }
 
     /**
-     * @return int|null
+     * @return null
      */
-    public function getDiscount(): ?int
+    public function getDiscount(): ?float
     {
         return $this->getParameter('discount');
     }
 
     /**
-     * @param int $value
+     * @param $value
      * @return AuthorizeRequest
      */
-    public function setDiscount(int $value): AuthorizeRequest
+    public function setDiscount(float $value): AuthorizeRequest
     {
         return $this->setParameter('discount', $value);
     }
