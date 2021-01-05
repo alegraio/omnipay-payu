@@ -66,6 +66,7 @@ class AuthorizeRequest extends AbstractRequest
             "DELIVERY_STATE" => $this->getCard()->getShippingCity() ?? '',
             "DELIVERY_COUNTRYCODE" => $this->getCard()->getShippingState() ?? '',
             "BACK_REF" => $this->getReturnUrl() ?? '',
+            "DISCOUNT" => $this->getDiscount() ?? 0,
         ];
 
         $data['SELECTED_INSTALLMENTS_NUMBER'] = !empty($this->getInstallmentNumber()) ? $this->getInstallmentNumber() : "1";
@@ -209,6 +210,23 @@ class AuthorizeRequest extends AbstractRequest
     public function setInstallmentNumber(int $value)
     {
         return $this->setParameter('installmentNumber', $value);
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getDiscount(): ?int
+    {
+        return $this->getParameter('discount');
+    }
+
+    /**
+     * @param int $value
+     * @return AuthorizeRequest
+     */
+    public function setDiscount(int $value): AuthorizeRequest
+    {
+        return $this->setParameter('discount', $value);
     }
 
     public function getSensitiveData(): array
