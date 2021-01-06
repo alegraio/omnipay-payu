@@ -18,7 +18,7 @@ class PayUTestCase extends TestCase
     protected function getPurchaseWithDiscountParams(): array
     {
         $params = $this->getDefaultPurchaseParams();
-        $params['discount'] = 50;
+        $params['discount'] = 19.9;
 
         return $this->provideMergedParams($params);
     }

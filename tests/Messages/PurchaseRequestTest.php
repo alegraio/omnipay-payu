@@ -51,19 +51,19 @@ class PurchaseRequestTest extends PayUTestCase
 
         $requestData = $this->request->getData();
 
-        $amountCalculated = 0;
+        $amountCalculated = 0.00;
         foreach ($requestData['ORDER_PRICE'] as $orderPriceKey => $orderPrice) {
-            $amountCalculated += (int)$orderPrice * (int)$requestData['ORDER_QTY'][$orderPriceKey];
+            $amountCalculated += (float)$orderPrice * (float)$requestData['ORDER_QTY'][$orderPriceKey];
         }
-        $amountCalculated -= $requestData['DISCOUNT'];
+        $amountCalculated -= (float)$requestData['DISCOUNT'];
         $response = $this->request->send();
-        $amountApplied = (int)$response->getData()['AMOUNT'];
+        $amountApplied = (float)$response->getData()['AMOUNT'];
 
         self::assertTrue($response->isSuccessful());
         self::assertFalse($response->isRedirect());
         self::assertSame('https://secure.payu.com.tr/order/alu/v3', $this->request->getEndpoint());
-        self::assertSame('187146704', $response->getTransactionReference());
-        self::assertSame((int)$amountCalculated, $amountApplied);
+        self::assertSame('187190065', $response->getTransactionReference());
+        self::assertSame($amountCalculated, $amountApplied);
     }
 
     public function testSendError(): void
