@@ -59,6 +59,23 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest i
     }
 
     /**
+     * @return mixed
+     */
+    public function getOrderRef()
+    {
+        return $this->getParameter('orderRef');
+    }
+
+    /**
+     * @param $value
+     * @return AbstractRequest
+     */
+    public function setOrderRef($value)
+    {
+        return $this->setParameter('orderRef', $value);
+    }
+
+    /**
      * Get HTTP Method.
      *
      * This is nearly always POST but can be over-ridden in sub classes.

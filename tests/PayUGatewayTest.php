@@ -6,6 +6,8 @@ use Omnipay\PayU\Messages\CardInfoV1Request;
 use Omnipay\PayU\Messages\CardInfoV2Request;
 use Omnipay\PayU\Messages\CompleteAuthorizeRequest;
 use Omnipay\PayU\Messages\FetchTransactionRequest;
+use Omnipay\PayU\Messages\PurchaseInfoRequest;
+use Omnipay\PayU\Messages\PurchaseInfoResponse;
 use Omnipay\PayU\Messages\PurchaseRequest;
 use Omnipay\PayU\Messages\RefundRequest;
 use Omnipay\PayU\PayUGateway;
@@ -25,6 +27,19 @@ class PayUGatewayTest extends GatewayTestCase
 
         self::assertInstanceOf(PurchaseRequest::class, $request);
         self::assertSame('41838239', $request->getOrderRef());
+    }
+
+    public function testPurchaseInfo(): void
+    {
+        /** @var PurchaseInfoRequest $request */
+        $request = $this->gateway->purchaseInfo(['orderRef' => 'NYX14792147']);
+
+        /** @var PurchaseInfoResponse $response */
+        /*$response = $request->send();
+        var_dump($response->getData());*/
+
+        self::assertInstanceOf(PurchaseInfoRequest::class, $request);
+        self::assertSame('NYX14792147', $request->getOrderRef());
     }
 
     public function testCompleteAuthorize(): void
