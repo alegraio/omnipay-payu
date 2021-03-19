@@ -15,6 +15,15 @@ class PayUTestCase extends TestCase
         return $this->provideMergedParams($params);
     }
 
+    protected function getPurchaseInfoParams(): array
+    {
+        $params = [
+            'orderRef' => 'NYX14792147'
+        ];
+
+        return $this->provideMergedParams($params);
+    }
+
     protected function getPurchaseWithDiscountParams(): array
     {
         $params = $this->getDefaultPurchaseParams();

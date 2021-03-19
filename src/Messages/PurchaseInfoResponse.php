@@ -19,6 +19,7 @@ class PurchaseInfoResponse extends Response
 
     public function isSuccessful()
     {
-        return isset($this->getData()['ORDER_STATUS']);
+        $data = $this->getData();
+        return (isset($data['ORDER_STATUS']) && $data['ORDER_STATUS'] !== 'NOT_FOUND');
     }
 }
