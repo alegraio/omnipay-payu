@@ -32,6 +32,16 @@ class Helper
         return $this->provideMergedParams($params);
     }
 
+    public function getPurchaseReportParams(): array
+    {
+        $params = [
+            'startDate' => '2020-01-01',
+            'endDate' => '2020-01-02'
+        ];
+
+        return $this->provideMergedParams($params);
+    }
+
     /**
      * @return array
      * @throws Exception
