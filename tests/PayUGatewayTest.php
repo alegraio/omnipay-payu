@@ -6,8 +6,8 @@ use Omnipay\PayU\Messages\CardInfoV1Request;
 use Omnipay\PayU\Messages\CardInfoV2Request;
 use Omnipay\PayU\Messages\CompleteAuthorizeRequest;
 use Omnipay\PayU\Messages\FetchTransactionRequest;
-use Omnipay\PayU\Messages\PurchaseInfoRequest;
-use Omnipay\PayU\Messages\PurchaseInfoResponse;
+use Omnipay\PayU\Messages\PurchaseReportRequest;
+use Omnipay\PayU\Messages\PurchaseReportResponse;
 use Omnipay\PayU\Messages\PurchaseRequest;
 use Omnipay\PayU\Messages\RefundRequest;
 use Omnipay\PayU\PayUGateway;
@@ -29,17 +29,20 @@ class PayUGatewayTest extends GatewayTestCase
         self::assertSame('41838239', $request->getOrderRef());
     }
 
-    public function testPurchaseInfo(): void
+    public function testPurchaseReport(): void
     {
-        /** @var PurchaseInfoRequest $request */
-        $request = $this->gateway->purchaseInfo(['orderRef' => 'NYX14792147']);
+        /** @var PurchaseReportRequest $request */
+        $request = $this->gateway->purchaseReport([
+            'startDate' => '2020-01-01',
+            'endDate' => '2020-01-02'
+        ]);
 
-        /** @var PurchaseInfoResponse $response */
+        /** @var PurchaseReportResponse $response */
         /*$response = $request->send();
         var_dump($response->getData());*/
 
-        self::assertInstanceOf(PurchaseInfoRequest::class, $request);
-        self::assertSame('NYX14792147', $request->getOrderRef());
+        self::assertInstanceOf(PurchaseReportRequest::class, $request);
+        self::assertSame('2020-01-01', $request->getStartDate());
     }
 
     public function testCompleteAuthorize(): void
@@ -81,9 +84,9 @@ class PayUGatewayTest extends GatewayTestCase
     public function testFetchTransaction(): void
     {
         /** @var FetchTransactionRequest $request */
-        $request = $this->gateway->fetchTransaction(['refNoExt' => '784']);
+        $request = $this->gateway->fetchTransaction(['orderRef' => '784']);
 
         self::assertInstanceOf(FetchTransactionRequest::class, $request);
-        self::assertSame('784', $request->getRefNoExt());
+        self::assertSame('784', $request->getOrderRef());
     }
 }

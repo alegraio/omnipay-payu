@@ -73,7 +73,7 @@ class PayUTestCase extends TestCase
     protected function getFetchTransactionParams(): array
     {
         $params = [
-            'refNoExt' => '1817127587777'
+            'orderRef' => '1817127587777'
         ];
 
         return $this->provideMergedParams($params);

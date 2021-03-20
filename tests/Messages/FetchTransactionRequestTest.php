@@ -2,7 +2,7 @@
 
 namespace OmnipayTest\PayU\Messages;
 
-use Omnipay\PayU\Messages\CompleteAuthorizeRequest;
+use Omnipay\Common\Http\Client;
 use Omnipay\PayU\Messages\FetchTransactionRequest;
 
 class FetchTransactionRequestTest extends PayUTestCase
@@ -25,11 +25,11 @@ class FetchTransactionRequestTest extends PayUTestCase
 
     public function testOrderReference(): void
     {
-        self::assertArrayNotHasKey('refNoExt', $this->request->getData());
+        self::assertArrayNotHasKey('orderRef', $this->request->getData());
 
-        $this->request->setRefNoExt('1817127587777');
+        $this->request->setOrderRef('1817127587777');
 
-        self::assertSame('1817127587777', $this->request->getRefNoExt());
+        self::assertSame('1817127587777', $this->request->getOrderRef());
     }
 
     public function testSendSuccess(): void

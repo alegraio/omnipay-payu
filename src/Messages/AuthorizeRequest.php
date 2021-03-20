@@ -162,14 +162,6 @@ class AuthorizeRequest extends AbstractRequest
     }
 
     /**
-     * @return mixed
-     */
-    public function getOrderRef()
-    {
-        return $this->getParameter('orderRef');
-    }
-
-    /**
      * @param $value
      * @return AuthorizeRequest
      */
@@ -184,15 +176,6 @@ class AuthorizeRequest extends AbstractRequest
     public function getOrderDate()
     {
         return $this->getParameter('orderDate');
-    }
-
-    /**
-     * @param $value
-     * @return AuthorizeRequest
-     */
-    public function setOrderRef($value)
-    {
-        return $this->setParameter('orderRef', $value);
     }
 
     /**

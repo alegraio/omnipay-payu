@@ -6,7 +6,6 @@
 namespace Omnipay\PayU;
 
 use Omnipay\Common\AbstractGateway;
-use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\Common\Message\RequestInterface;
 use Omnipay\PayU\Messages\CompleteAuthorizeRequest;
 use Omnipay\PayU\Messages\PurchaseInfoRequest;
@@ -115,15 +114,6 @@ class PayUGateway extends AbstractGateway
     public function cardInfoV1(array $parameters = []): CardInfoV1Request
     {
         return $this->createRequest(CardInfoV1Request::class, $parameters);
-    }
-
-    /**
-     * @param array $parameters
-     * @return PurchaseInfoRequest|RequestInterface
-     */
-    public function purchaseInfo(array $parameters = []): PurchaseInfoRequest
-    {
-        return $this->createRequest(PurchaseInfoRequest::class, $parameters);
     }
 
     /**

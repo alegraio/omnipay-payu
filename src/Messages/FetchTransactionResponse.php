@@ -8,9 +8,6 @@ namespace Omnipay\PayU\Messages;
 class FetchTransactionResponse extends Response
 {
 
-    /**
-     * @return bool
-     */
     public function isSuccessful(): bool
     {
         return true;

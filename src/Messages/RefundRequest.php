@@ -50,23 +50,6 @@ class RefundRequest extends AbstractRequest
     /**
      * @return mixed
      */
-    public function getOrderRef()
-    {
-        return $this->getParameter('orderRef');
-    }
-
-    /**
-     * @param $value
-     * @return RefundRequest
-     */
-    public function setOrderRef($value)
-    {
-        return $this->setParameter('orderRef', $value);
-    }
-
-    /**
-     * @return mixed
-     */
     public function getOrderAmount()
     {
         return $this->getParameter('orderAmount');

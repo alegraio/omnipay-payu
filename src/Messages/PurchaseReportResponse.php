@@ -34,6 +34,11 @@ class PurchaseReportResponse extends AbstractResponse
         return $this->statusCode;
     }
 
+    public function getMessage(): ?string
+    {
+        return $this->data['statusDescription'] ?? null;
+    }
+
     /**
      * @param array $data
      * @return void

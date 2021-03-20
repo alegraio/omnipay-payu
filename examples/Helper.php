@@ -20,18 +20,6 @@ class Helper
         return $this->provideMergedParams($params);
     }
 
-    /**
-     * @return array
-     */
-    public function getPurchaseInfoParams(): array
-    {
-        $params = [
-            'orderRef' => 'NYX14792147'
-        ];
-
-        return $this->provideMergedParams($params);
-    }
-
     public function getPurchaseReportParams(): array
     {
         $params = [
@@ -77,7 +65,7 @@ class Helper
     public function getFetchTransactionParams(): array
     {
         $params = [
-            'refNoExt' => '181683681'
+            'orderRef' => '181683681'
         ];
 
         return $this->provideMergedParams($params);

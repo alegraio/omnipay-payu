@@ -51,23 +51,6 @@ class CompleteAuthorizeRequest extends AbstractRequest
     /**
      * @return mixed
      */
-    public function getOrderRef()
-    {
-        return $this->getParameter('orderRef');
-    }
-
-    /**
-     * @param $value
-     * @return CompleteAuthorizeRequest
-     */
-    public function setOrderRef($value)
-    {
-        return $this->setParameter('orderRef', $value);
-    }
-
-    /**
-     * @return mixed
-     */
     public function getIdnDate()
     {
         return $this->getParameter('idnDate') ?? gmdate('Y-m-d H:i:s');

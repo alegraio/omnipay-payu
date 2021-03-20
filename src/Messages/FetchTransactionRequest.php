@@ -13,20 +13,21 @@ class FetchTransactionRequest extends AbstractRequest
      * @return array|mixed
      * @throws \Exception
      */
-    public function getData()
+    public function getData(): array
     {
         try {
+            $secret = $this->getSecret();
+            $merchant = $this->getClientId();
+            $refNoExt = $this->getOrderRef();
             $data = [
-                "MERCHANT" => $this->getClientId(),
-                "REFNOEXT" => $this->getRefNoExt(),
+                'MERCHANT' => $merchant,
+                'REFNOEXT' => $refNoExt,
+                'SECRET_KEY' => $secret
             ];
 
-            $hashString = "";
-            foreach ($data as $key => $value) {
-                $hashString .= strlen($value) . $value;
-            }
-
-            $hash = hash_hmac('md5', $hashString, $this->getSecret());
+            $hash_string = strlen($merchant) . $merchant;
+            $hash_string .= strlen($refNoExt) . $refNoExt;
+            $hash = hash_hmac('md5', $hash_string, $secret);
             $data['HASH'] = $hash;
             $this->setRequestParams($data);
         } catch (\Exception $exception) {
@@ -42,23 +43,6 @@ class FetchTransactionRequest extends AbstractRequest
     public function getEndpoint(): string
     {
         return $this->getApiUrl() . '/order/ios.php';
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRefNoExt()
-    {
-        return $this->getParameter('refNoExt');
-    }
-
-    /**
-     * @param $value
-     * @return FetchTransactionRequest
-     */
-    public function setRefNoExt($value)
-    {
-        return $this->setParameter('refNoExt', $value);
     }
 
     /**
