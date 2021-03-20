@@ -22,6 +22,18 @@ class Helper
 
     /**
      * @return array
+     */
+    public function getPurchaseInfoParams(): array
+    {
+        $params = [
+            'orderRef' => 'NYX14792147'
+        ];
+
+        return $this->provideMergedParams($params);
+    }
+
+    /**
+     * @return array
      * @throws Exception
      */
     public function getPurchase3dParams(): array

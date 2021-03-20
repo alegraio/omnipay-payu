@@ -1,0 +1,19 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Fri, 11 Nov 2020 18:25:28 GMT
+Content-Type: application/json;charset=utf-8
+Content-Length: 2966
+Connection: keep-alive
+Cache-Control: no-cache, no-store
+Request-Id: req_8PDHeZazN2LwML
+Access-Control-Allow-Credentials: true
+Access-Control-Max-Age: 300
+
+<Order>
+    <ORDER_DATE>-</ORDER_DATE>
+    <REFNO>-</REFNO>
+    <REFNOEXT>-</REFNOEXT>
+    <ORDER_STATUS>NOT_FOUND</ORDER_STATUS>
+    <PAYMETHOD>-</PAYMETHOD>
+    <HASH>3d7a2f5069534c56a56903b2c34bf8b4</HASH>
+</Order>
