@@ -24,6 +24,16 @@ class PayUTestCase extends TestCase
         return $this->provideMergedParams($params);
     }
 
+    protected function getPurchaseReportParams(): array
+    {
+        $params = [
+            'startDate' => '2020-01-01',
+            'endDate' => '2020-01-02'
+        ];
+
+        return $this->provideMergedParams($params);
+    }
+
     protected function getPurchaseWithDiscountParams(): array
     {
         $params = $this->getDefaultPurchaseParams();

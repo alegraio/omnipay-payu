@@ -10,6 +10,7 @@ use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\Common\Message\RequestInterface;
 use Omnipay\PayU\Messages\CompleteAuthorizeRequest;
 use Omnipay\PayU\Messages\PurchaseInfoRequest;
+use Omnipay\PayU\Messages\PurchaseReportRequest;
 use Omnipay\PayU\Messages\RefundRequest;
 use Omnipay\PayU\Messages\CardInfoV1Request;
 use Omnipay\PayU\Messages\FetchTransactionRequest;
@@ -36,7 +37,7 @@ class PayUGateway extends AbstractGateway
      * This can be used by carts to get the display name for each gateway.
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return 'PayU';
     }
@@ -74,7 +75,7 @@ class PayUGateway extends AbstractGateway
      * @param string $value
      * @return PayUGateway
      */
-    public function setClientId(string $value)
+    public function setClientId(string $value): PayUGateway
     {
         return $this->setParameter('clientId', $value);
     }
@@ -127,6 +128,15 @@ class PayUGateway extends AbstractGateway
 
     /**
      * @param array $parameters
+     * @return PurchaseReportRequest|RequestInterface
+     */
+    public function purchaseReport(array $parameters = []): PurchaseReportRequest
+    {
+        return $this->createRequest(PurchaseReportRequest::class, $parameters);
+    }
+
+    /**
+     * @param array $parameters
      * @return FetchTransactionRequest|RequestInterface
      */
     public function fetchTransaction(array $parameters = []): FetchTransactionRequest
@@ -147,7 +157,7 @@ class PayUGateway extends AbstractGateway
      * @param string $value
      * @return PayUGateway
      */
-    public function setSecret(string $value)
+    public function setSecret(string $value): PayUGateway
     {
         return $this->setParameter('secret', $value);
     }

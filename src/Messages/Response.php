@@ -23,7 +23,7 @@ class Response extends AbstractResponse
     /**
      * @return boolean
      */
-    public function isSuccessful()
+    public function isSuccessful(): bool
     {
         return !('SUCCESS' !== $this->data['STATUS']);
     }
@@ -37,7 +37,7 @@ class Response extends AbstractResponse
         return $this->statusCode;
     }
 
-    public function getTransactionReference()
+    public function getTransactionReference(): ?string
     {
         if (!empty($this->data['REFNO'])) {
             return $this->data['REFNO'];
@@ -46,7 +46,7 @@ class Response extends AbstractResponse
         return null;
     }
 
-    public function getMessage()
+    public function getMessage(): ?string
     {
         if (!empty($this->data['RETURN_MESSAGE'])) {
             return $this->data['RETURN_MESSAGE'];
@@ -58,7 +58,7 @@ class Response extends AbstractResponse
     /**
      * @return bool
      */
-    public function isRedirect()
+    public function isRedirect(): bool
     {
         return !empty($this->data['RETURN_CODE']) && $this->isSuccessful() && $this->data['RETURN_CODE'] === '3DS_ENROLLED';
     }
@@ -66,7 +66,7 @@ class Response extends AbstractResponse
     /**
      * @return string|null
      */
-    public function getRedirectUrl()
+    public function getRedirectUrl(): ?string
     {
         if (!empty($this->data['RETURN_CODE']) && $this->data['RETURN_CODE'] === '3DS_ENROLLED') {
             return $this->data['URL_3DS'];
@@ -77,7 +77,7 @@ class Response extends AbstractResponse
 
     /**
      * @param array $data
-     * @return array
+     * @return void
      */
     public function setData(array $data): void
     {

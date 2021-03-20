@@ -30,19 +30,19 @@ class CompleteAuthorizeResponse extends AbstractResponse
         return isset($this->data[1]) && (in_array($this->data[1], self::SUCCESS_CODES, false));
     }
 
-    public function getTransactionReference()
+    public function getTransactionReference(): ?string
     {
         return $this->data[0] ?? null;
     }
 
-    public function getMessage()
+    public function getMessage(): ?string
     {
-        return isset($this->data[2]) ? $this->data[2] : null;
+        return $this->data[2] ?? null;
     }
 
-    public function getCode()
+    public function getCode(): ?string
     {
-        return isset($this->data[1]) ? $this->data[1] : null;
+        return $this->data[1] ?? null;
     }
 
     /**

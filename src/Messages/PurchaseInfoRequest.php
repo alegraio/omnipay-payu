@@ -13,7 +13,7 @@ class PurchaseInfoRequest extends AbstractRequest
      * @return array|mixed
      * @throws \Exception
      */
-    public function getData()
+    public function getData(): array
     {
         try {
             $secret = $this->getSecret();
@@ -35,11 +35,6 @@ class PurchaseInfoRequest extends AbstractRequest
         }
 
         return $data;
-    }
-
-    protected function getHttpMethod()
-    {
-        return 'POST';
     }
 
     /**

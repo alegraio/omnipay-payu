@@ -16,7 +16,7 @@ class FetchTransactionResponse extends Response
         return true;
     }
 
-    public function getTransactionReference()
+    public function getTransactionReference(): ?string
     {
         return $this->getData()['REFNO'] ?? null;
     }
@@ -36,7 +36,7 @@ class FetchTransactionResponse extends Response
         return $this->getData()['PAYMETHOD'] ?? null;
     }
 
-    public function getMessage()
+    public function getMessage(): ?string
     {
         return $this->getData()['ORDER_STATUS'] ?? null;
     }

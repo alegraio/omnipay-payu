@@ -49,7 +49,7 @@ class CardInfoV1RequestTest extends PayUTestCase
         self::assertFalse($response->isSuccessful());
         self::assertSame('https://secure.payu.com.tr/api/card-info/v1/' . $this->request->getBin(),
             $this->request->getEndpoint());
-        self::assertSame(20000001, $response->getCode());
+        self::assertSame('20000001', $response->getCode());
         self::assertSame('cardBin is required and should be numeric.', $response->getMessage());
     }
 }

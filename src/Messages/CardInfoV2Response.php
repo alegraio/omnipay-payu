@@ -22,12 +22,12 @@ class CardInfoV2Response extends AbstractResponse
     /**
      * @return boolean
      */
-    public function isSuccessful()
+    public function isSuccessful(): bool
     {
         return $this->getMessage() === 'success';
     }
 
-    public function getMessage()
+    public function getMessage(): ?string
     {
         if (!empty($this->getData()['meta']) && !empty($this->getData()['meta']['message'])) {
             return $this->getData()['meta']['message'];
@@ -48,7 +48,7 @@ class CardInfoV2Response extends AbstractResponse
     /**
      * @return array
      */
-    public function getCardInfo()
+    public function getCardInfo(): array
     {
         if (!empty($this->getData()['cardInfo'])) {
             return $this->getData()['cardInfo'];
@@ -154,7 +154,7 @@ class CardInfoV2Response extends AbstractResponse
     }
 
     /**
-     * @return mixed|mixed
+     * @return mixed
      */
     public function getCardInstallmentOptions()
     {

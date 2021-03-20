@@ -13,7 +13,7 @@ class CardInfoV1Request extends AbstractRequest
      * @return array|mixed
      * @throws \Exception
      */
-    public function getData()
+    public function getData(): array
     {
         try {
             $data = [
@@ -32,7 +32,7 @@ class CardInfoV1Request extends AbstractRequest
         return $data;
     }
 
-    protected function getHttpMethod()
+    protected function getHttpMethod(): string
     {
         return 'GET';
     }
@@ -57,7 +57,7 @@ class CardInfoV1Request extends AbstractRequest
      * @param $value
      * @return CardInfoV1Request
      */
-    public function setBin($value)
+    public function setBin($value): CardInfoV1Request
     {
         return $this->setParameter('bin', $value);
     }
@@ -74,7 +74,7 @@ class CardInfoV1Request extends AbstractRequest
      * @param $value
      * @return CardInfoV1Request
      */
-    public function setTimestamp($value)
+    public function setTimestamp($value): CardInfoV1Request
     {
         return $this->setParameter('timestamp', $value);
     }
