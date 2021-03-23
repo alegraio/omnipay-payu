@@ -8,7 +8,6 @@ namespace Omnipay\PayU;
 use Omnipay\Common\AbstractGateway;
 use Omnipay\Common\Message\RequestInterface;
 use Omnipay\PayU\Messages\CompleteAuthorizeRequest;
-use Omnipay\PayU\Messages\PurchaseInfoRequest;
 use Omnipay\PayU\Messages\PurchaseReportRequest;
 use Omnipay\PayU\Messages\RefundRequest;
 use Omnipay\PayU\Messages\CardInfoV1Request;
